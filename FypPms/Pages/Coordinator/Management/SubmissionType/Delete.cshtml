@@ -1,0 +1,73 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.SubmissionType.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Are you sure you want to delete this?</h3>
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.Name)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.Name)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.StartDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.StartDate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.EndDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.EndDate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.GraceDate)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.GraceDate)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.Status)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.Status)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.DateCreated)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.DateCreated)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.DateModified)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.DateModified)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SubmissionType.DateDeleted)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SubmissionType.DateDeleted)
+                    </dd>
+                </dl>
+
+                <form method="post">
+                    <input type="hidden" asp-for="SubmissionType.SubmissionTypeId" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a class="btn btn-secondary" asp-page="/Coordinator/Management/SubmissionType/Details" asp-route-id="@Model.SubmissionType.SubmissionTypeId">Back to List</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

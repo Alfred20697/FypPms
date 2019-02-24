@@ -1,0 +1,46 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Announcement.DetailsModel
+
+@{
+    ViewData["Title"] = "Announcement Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Announcement.AnnouncementSubject)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Announcement.AnnouncementSubject)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Announcement.AnnouncementBody)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.Announcement.AnnouncementBody)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Announcement.AnnouncementStatus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Announcement.AnnouncementStatus)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Announcement.AnnouncementType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Announcement.AnnouncementType)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" asp-page="/Coordinator/Announcement/Edit" asp-route-id="@Model.Announcement.AnnouncementId">Edit</a>
+            <a class="btn btn-danger" asp-page="/Coordinator/Announcement/Delete" asp-route-id="@Model.Announcement.AnnouncementId">Delete</a>
+            <a class="btn btn-secondary" asp-page="/Coordinator/Announcement/Index">Back to List</a>
+        </div>
+    </div>
+</div>

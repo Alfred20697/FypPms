@@ -1,0 +1,64 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Report.IndexModel
+@{
+    ViewData["Title"] = "Management Report";
+}
+
+<style>
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Student Report</h4>
+            <ol>
+                <li>
+                    <a class="" target="_blank" href="http://localhost:51524/reports/Student/Student%20Specialization%20Report">Student Specialization Report</a>
+                </li>
+                <li>
+                    <a class="" target="_blank" href="http://localhost:51524/reports/Student/Student%20Status%20Report">Student Status Report</a>
+                </li>
+                <li>
+                    <a class="" target="_blank" href="http://localhost:51524/reports/Student/Student%20Specialization%20and%20Status">Student Specialization and Status Report</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-md-12">
+                <h4>Supervisor Report</h4>
+                <ol>
+                    <li>
+                        <a class="" target="_blank" href="">Supervisor Workload Report</a>
+                    </li>
+                </ol>
+            </div>
+        </div>*@
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Project Report</h4>
+            <ol>
+                <li>
+                    <a class="" target="_blank" href="http://localhost:51524/reports/Project/Project%20Specialization">Project Specialization Report</a>
+                </li>
+                <li>
+                    <a class="" target="_blank" href="http://localhost:51524/reports/Project/Project%20Status">Project Status Report</a>
+                </li>
+                <li>
+                    <a class="" target="_blank" href="http://localhost:51524/reports/Project/Project%20Specialization%20and%20Status">Project Specialization and Status Report</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+</div>

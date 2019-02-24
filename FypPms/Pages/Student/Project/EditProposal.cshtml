@@ -1,0 +1,87 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Student.Project.EditProposalModel
+@{
+    ViewData["Title"] = "Edit Proposal";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+                <p class="text-info">Please make changes accordingly with reference to the comments.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dl class="dl-horizontal" style="border: 2px double; padding: 5px;">
+                <dt>Proposal Comments</dt>
+                <dd>@Html.Raw(Model.Proposal.ProposalComment)</dd>
+            </dl>
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Epf.Title" class="control-label"></label>
+                    <input asp-for="Epf.Title" class="form-control" value="@Model.Project.ProjectTitle" />
+                    <span asp-validation-for="Epf.Title" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Epf.Category" class="control-label"></label>
+                    <select asp-for="Epf.Category" class="form-control" asp-items="Model.Categories"></select>
+                    <span asp-validation-for="Epf.Category" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Epf.Focus" class="control-label"></label>
+                    <select asp-for="Epf.Focus" class="form-control" asp-items="Model.Focuses"></select>
+                    <span asp-validation-for="Epf.Focus" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Epf.Description" class="control-label"></label>
+                    <textarea asp-for="Epf.Description" class="form-control" rows="10" id="description"></textarea>
+                    <span asp-validation-for="Epf.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Epf.Objective" class="control-label"></label>
+                    <textarea asp-for="Epf.Objective" class="form-control" rows="10" id="objective"></textarea>
+                    <span asp-validation-for="Epf.Objective" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Epf.Scope" class="control-label"></label>
+                    <textarea asp-for="Epf.Scope" class="form-control" rows="10" id="scope"></textarea>
+                    <span asp-validation-for="Epf.Scope" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button class="btn btn-success" asp-page="/Student/Project/EditProposal" asp-page-handler="Accept" asp-route-id="@Model.Proposal.ProposalId">Submit Changes</button>
+                    <a class="btn btn-danger" asp-page="/Student/Project/MyProposal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('description');
+    CKEDITOR.replace('objective');
+    CKEDITOR.replace('scope');
+</script>

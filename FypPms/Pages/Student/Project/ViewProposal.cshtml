@@ -1,0 +1,106 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Student.Project.ViewProposalModel
+@{
+    ViewData["Title"] = "View Proposal";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    Student ID
+                </dt>
+                <dd>
+                    @Model.Student.AssignedId
+                </dd>
+                <dt>
+                    Student Name
+                </dt>
+                <dd>
+                    @Model.Student.StudentName
+                </dd>
+                <dt>
+                    Student Specialization
+                </dt>
+                <dd>
+                    @Model.Student.StudentSpecialization
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectTitle)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    Project Specialization
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectCategory)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectCategory)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectFocus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectFocus)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectDescription)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectDescription)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectObjective)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectObjective)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectScope)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectScope)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-secondary" asp-page="/Student/Project/MyProposal">Back to List</a>
+        </div>
+    </div>
+</div>
+
+

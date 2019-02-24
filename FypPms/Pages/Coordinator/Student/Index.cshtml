@@ -1,0 +1,105 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Student.IndexModel
+@{
+    ViewData["Title"] = "Students";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-responsive-md" id="student">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.Students[0].AssignedId)
+                        </th>
+                        <th class="align-middle" style="width: 25%">
+                            @Html.DisplayNameFor(model => model.Students[0].StudentName)
+                        </th>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.Students[0].StudentStatus)
+                        </th>
+                        <th class="align-middle" style="width: 12.5%">
+                            @Html.DisplayNameFor(model => model.Students[0].Batch)
+                        </th>
+                        <th class="align-middle" style="width: 12.5%">
+                            @Html.DisplayNameFor(model => model.Students[0].Project.AssignedId)
+                        </th>
+                        <th class="align-middle" style="width: 20%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Students)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssignedId)
+                            </td>
+                            <td>
+                                <a class="btn-link" style="color: black" asp-page="/Coordinator/Student/ViewStudent" asp-route-id="@item.StudentId">
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StudentStatus)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Batch.BatchName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Project.AssignedId)
+                            </td>
+                            <td>
+                                <form method="post">
+                                    @if (item.StudentStatus == "Confirmed" && item.Project.ProjectStage == "FYP1")
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index" asp-page-handler="Continue" asp-route-id="@item.StudentId">Continue</button>
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index" asp-page-handler="Fail" asp-route-id="@item.StudentId">Fail</button>
+                                    }
+                                    @if (item.StudentStatus == "Confirmed" && item.Project.ProjectStage == "FYP2")
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index" asp-page-handler="Complete" asp-route-id="@item.StudentId">Complete</button>
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index" asp-page-handler="Fail" asp-route-id="@item.StudentId">Fail</button>
+                                    }
+                                    @if (item.StudentStatus == "On")
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index" asp-page-handler="Off" asp-route-id="@item.StudentId">Off</button>
+
+                                    }
+                                    @if (item.StudentStatus == "Off")
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index" asp-page-handler="On" asp-route-id="@item.StudentId">On</button>
+                                    }
+                                    @if (item.StudentStatus == "New")
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/StudentApproval" asp-route-id="@item.StudentId" type="submit">Approve</button>
+                                    }
+                                    @*@if (item.StudentStatus == "Completed")
+                                        {
+                                            <button class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index" asp-page-handler="Uncomplete" asp-route-id="@item.StudentId">Uncomplete</button>
+                                        }*@
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#student').DataTable({
+            "pageLength": 50
+        });
+    });
+</script>

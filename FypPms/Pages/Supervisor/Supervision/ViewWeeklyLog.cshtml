@@ -1,0 +1,148 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Supervision.ViewWeeklyLogModel
+@{
+    ViewData["Title"] = "View Weekly Log";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    @if (Model.WeeklyLog != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Project Title: @Model.WeeklyLog.Project.ProjectTitle</h4>
+                <h5>Meeting No: @Model.WeeklyLog.WeeklyLogNumber</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Student.StudentName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Student.StudentName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Supervisor.SupervisorName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Supervisor.SupervisorName)
+                    </dd>
+                    @if (Model.CoSupervisor != null)
+                    {
+                        <dt>
+                            Co-Supervisor Name
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.CoSupervisor.SupervisorName)
+                        </dd>
+                    }
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WeeklyLogStatus)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.WeeklyLog.WeeklyLogStatus)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WeeklyLogDate)
+                    </dt>
+                    <dd>
+                        @Model.WeeklyLog.WeeklyLogDate.ToShortDateString()
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WeeklyLogSession)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.WeeklyLog.WeeklyLogSession)
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-8">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WorkDone)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.WorkDone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WorkToBeDone)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.WorkToBeDone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.Problem)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.Problem)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.Comment)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.Comment)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                @if (Model.CanApprove)
+                {
+                    <form method="post">
+                        <div class="form-group">
+                            <label asp-for="Af.Comment" class="control-label" style="font-weight: bold"></label>
+                            <small style="color: #e9001d;">
+                                * Please fill in if the weekly log requires modification.
+                            </small>
+                            <textarea asp-for="Af.Comment" class="form-control" rows="6" id="comment"></textarea>
+                            <span asp-validation-for="Af.Comment" class="text-danger"></span>
+                        </div>
+                        @if (Model.WeeklyLog.WeeklyLogStatus != "Require Modification" && Model.WeeklyLog.WeeklyLogStatus != "Rejected")
+                        {
+                            <button class="btn btn-success" asp-page="/Supervisor/Supervision/ViewWeeklyLog" asp-page-handler="Approve" asp-route-id="@Model.WeeklyLog.WeeklyLogId">Approve</button>
+                            <button class="btn btn-warning" asp-page="/Supervisor/Supervision/ViewWeeklyLog" asp-page-handler="Modify" asp-route-id="@Model.WeeklyLog.WeeklyLogId">Require Modification</button>
+                        }
+                        else
+                        {
+                            <p>There is no modification from student yet.</p>
+                        }
+                    </form>
+                }
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-secondary" asp-page="/Supervisor/Supervision/SupervisedStudent" asp-route-id="@Model.WeeklyLog.ProjectId">Back to List</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-secondary" asp-page="/Supervisor/Supervision/Index">Back to List</a>
+            </div>
+        </div>
+    }
+
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('comment');
+</script>

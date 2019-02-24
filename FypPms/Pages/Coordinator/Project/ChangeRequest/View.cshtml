@@ -1,0 +1,87 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Project.ChangeRequest.ViewModel
+@{
+    ViewData["Title"] = "View Change Request";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Project ID: @Model.Project.AssignedId</h4>
+            <h4>Project Title: @Model.Project.ProjectTitle</h4>
+            <h5>Change Type: @Model.ChangeRequest.ChangeRequestType</h5>
+            <h5>Reason: @Html.Raw(Model.ChangeRequest.ReasonToChange)</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h5 style="text-decoration: underline;">Original</h5>
+        </div>
+        <div class="col-md-6">
+            <h5 style="text-decoration: underline;">Upcoming Change</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Project Title: </p>
+            <p>@Html.Raw(Model.Project.ProjectTitle)</p>
+        </div>
+        <div class="col-md-6">
+            <p>Project Title: </p>
+            <p>@Html.Raw(Model.ChangeRequest.Title)</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Project Description: </p>
+            <p>@Html.Raw(Model.ProjectSpecialization.ProjectDescription)</p>
+        </div>
+        <div class="col-md-6">
+            <p>Project Description: </p>
+            <p>@Html.Raw(Model.ChangeRequest.Description)</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Project Objective: </p>
+            <p>@Html.Raw(Model.ProjectSpecialization.ProjectObjective)</p>
+        </div>
+        <div class="col-md-6">
+            <p>Project Objective: </p>
+            <p>@Html.Raw(Model.ChangeRequest.Objective)</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p>Project Scope: </p>
+            <p>@Html.Raw(Model.ProjectSpecialization.ProjectScope)</p>
+        </div>
+        <div class="col-md-6">
+            <p>Project Scope: </p>
+            <p>@Html.Raw(Model.ChangeRequest.Scope)</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post">
+                <button class="btn btn-success" asp-page-handler="Approve" asp-route-id="@Model.ChangeRequest.ChangeRequestId">Approve Changes</button>
+                <button class="btn btn-danger" asp-page-handler="Reject" asp-route-id="@Model.ChangeRequest.ChangeRequestId">Reject Changes</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary" asp-page="/Coordinator/Project/ChangeRequest/Index">Back to List</a>
+        </div>
+    </div>
+</div>
+

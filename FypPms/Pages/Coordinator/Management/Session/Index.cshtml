@@ -1,0 +1,62 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.Session.IndexModel
+
+@{
+    ViewData["Title"] = "Project Session";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Session/Create">Create New</a>
+            </p>
+            <table class="table table-responsive-md" id="session">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 80%">
+                            @Html.DisplayNameFor(model => model.Session[0].SessionName)
+                        </th>
+                        <th class="align-middle" style="width: 20%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Session)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SessionName)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Coordinator/Management/Session/Details" asp-route-id="@item.SessionId">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <a class="btn btn-secondary" asp-page="/Coordinator/Management/Index">Back to Settings</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#session').DataTable();
+    });
+</script>

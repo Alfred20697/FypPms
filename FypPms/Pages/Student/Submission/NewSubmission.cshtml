@@ -1,0 +1,48 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Student.Submission.NewSubmissionModel
+@{
+    ViewData["Title"] = "Create Submission";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+        <input type="hidden" asp-for="SubmissionType.SubmissionTypeId" />
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label asp-for="Sf.Batch" class="control-label"></label>
+                    <input asp-for="Sf.Batch" class="form-control" readonly />
+                    <span asp-validation-for="Sf.Batch" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sf.Type" class="control-label"></label>
+                    <input asp-for="Sf.Type" class="form-control" readonly />
+                    <span asp-validation-for="Sf.Type" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sf.ReportFile" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="Sf.ReportFile" type="file" class="custom-file-input" id="customFile">
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a class="btn btn-danger" asp-page="/Student/Submission/Index">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

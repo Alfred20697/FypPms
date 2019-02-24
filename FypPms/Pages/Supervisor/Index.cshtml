@@ -1,0 +1,200 @@
+﻿@page
+@model FypPms.Pages.Supervisor.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Announcement</h4>
+            @foreach (var item in Model.Announcements)
+            {
+                <div class="card border-dark">
+                    <div class="card-header text-white" style="background-color: #00695c;">
+                        @item.AnnouncementSubject
+                    </div>
+                    <div class="card-body" style="background-color: #ffffff;">
+                        <p class="card-text text-dark">@Html.Raw(item.AnnouncementBody)</p>
+                        @if (item.AttachmentFile != null)
+                        {
+                            <span>Attachment: </span>
+                            <a class="btn-link" asp-page="/Supervisor/Index" asp-route-id="@item.AnnouncementId" asp-page-handler="Download"> @item.AttachmentFile</a>
+                        }
+
+                        <p class="card-text text-dark">
+                            @item.DateCreated
+                            @if (item.DateModified == null)
+                            {
+                                <span>(New)</span>
+                            }
+                            else
+                            {
+                                <span>(Edited)</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <br />
+            }
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Received Proposal</h4>
+
+                    <div class="card border-dark">
+                        @if (Model.Proposals.Count() > 0)
+                        {
+                            @foreach (var item in Model.Proposals)
+                            {
+                                <div class="card-body" style="background-color: #ffffff;">
+                                    <p class="card-text text-dark">Project Title: @item.Project.ProjectTitle</p>
+                                    <p class="card-text text-dark">Status: @item.Project.ProjectStatus</p>
+                                    <p class="card-text text-dark">Student: @Model.StudentPairs[item.Sender]</p>
+                                </div>
+                                <br />
+                            }
+                            <div class="card-body">
+                                <a class="card-link btn btn-outline-primary" asp-page="/Supervisor/Project/ReceivedProposal">Go to Proposal</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No proposal received</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Received Requisition</h4>
+
+                    <div class="card border-dark">
+                        @if (Model.Requisitions.Count() > 0)
+                        {
+                            @foreach (var item in Model.Requisitions)
+                            {
+                                <div class="card-body" style="background-color: #ffffff;">
+                                    <p class="card-text text-dark">Project Title: @item.Project.ProjectTitle</p>
+                                    <p class="card-text text-dark">Student: @Model.StudentPairs[item.Sender]</p>
+                                </div>
+                                <br />
+                            }
+                            <div class="card-body">
+                                <a class="card-link btn btn-outline-primary" asp-page="/Supervisor/Project/ReceivedRequisition">Go to Requisition</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No requisition received</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Assigned Review</h4>
+
+                    <div class="card border-dark">
+                        @if (Model.Reviews.Count() > 0)
+                        {
+                            @foreach (var item in Model.Reviews)
+                            {
+                                <div class="card-body" style="background-color: #ffffff;">
+                                    <p class="card-text text-dark">Project Title: @item.Project.ProjectTitle</p>
+                                    <p class="card-text text-dark">Supervisor: @Model.SupervisorPairs[item.Project.SupervisorId]</p>
+                                </div>
+                                <br />
+                            }
+                            <div class="card-body">
+                                <a class="card-link btn btn-outline-primary" asp-page="/Supervisor/Review/Index">Review Project</a>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No project assigned to review</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Weekly Log Review</h4>
+
+                    <div class="card border-dark">
+                        @if (Model.WeeklyLogs.Count() > 0)
+                        {
+                            @foreach (var item in Model.WeeklyLogs)
+                            {
+                                <div class="card-body" style="background-color: #ffffff;">
+                                    <p class="card-text text-dark">Project Title: @item.Project.ProjectTitle</p>
+                                    <p class="card-text text-dark">Meeting No: @item.WeeklyLogNumber</p>
+                                    <p class="card-text text-dark">Student: @Model.StudentPairs[item.StudentId]</p>
+                                </div>
+                                <br />
+                            }
+                            <div class="card-body">
+                                <a class="card-link btn btn-outline-primary" asp-page="/Supervisor/Supervision/Index">Approve Weekly Log</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No weekly log received yet.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Report Submission</h4>
+
+                    <div class="card border-dark">
+                        @if (Model.SubmissionTypes.Count() > 0)
+                        {
+                            @foreach (var item in Model.SubmissionTypes)
+                            {
+                                <div class="card-body" style="background-color: #ffffff;">
+                                    <p class="card-text text-dark">Submission Type: @item.Name</p>
+                                    <p class="card-text text-dark">Submission Batch: @item.Batch.BatchName</p>
+                                    <p class="card-text text-dark">Submission Count: @Model.SubmissionCountPairs[item.SubmissionTypeId]</p>
+                                </div>
+                                <br />
+                            }
+                            <div class="card-body">
+                                <a class="card-link btn btn-outline-primary" asp-page="/Supervisor/Supervision/Index">View Report</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No report received yet.</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

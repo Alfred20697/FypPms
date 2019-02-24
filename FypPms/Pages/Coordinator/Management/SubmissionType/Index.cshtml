@@ -1,0 +1,96 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.SubmissionType.IndexModel
+
+@{
+    ViewData["Title"] = "Submission Type List";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/SubmissionType/Create">Create New</a>
+            </p>
+            <table class="table table-responsive-md" id="submissiontype">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.SubmissionType[0].Name)
+                        </th>
+                        <th class="align-middle" style="width: 10%">
+                            @Html.DisplayNameFor(model => model.SubmissionType[0].Batch.BatchName)
+                        </th>
+                        <th class="align-middle" style="width: 10%">
+                            @Html.DisplayNameFor(model => model.SubmissionType[0].Status)
+                        </th>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.SubmissionType[0].StartDate)
+                        </th>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.SubmissionType[0].EndDate)
+                        </th>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.SubmissionType[0].GraceDate)
+                        </th>
+                        <th class="align-middle" style="width: 10%">
+                            Submission Count
+                        </th>
+                        <th class="align-middle" style="width: 10%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.SubmissionType)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Batch.BatchName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @item.StartDate
+                            </td>
+                            <td>
+                                @item.EndDate
+                            </td>
+                            <td>
+                                @item.GraceDate
+                            </td>
+                            <td class="text-center">@Model.SubmissionCountPairs[item.SubmissionTypeId]</td>
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Coordinator/Management/SubmissionType/Details" asp-route-id="@item.SubmissionTypeId">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <a class="btn btn-secondary" asp-page="/Coordinator/Management/Index">Back to Settings</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#submissiontype').DataTable();
+    });
+</script>

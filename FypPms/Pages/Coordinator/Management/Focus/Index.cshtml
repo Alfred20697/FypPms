@@ -1,0 +1,68 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.Focus.IndexModel
+
+@{
+    ViewData["Title"] = "Project Focus";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Focus/Create">Create New</a>
+            </p>
+            <table class="table table-responsive-md" id="focus">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 50%">
+                            @Html.DisplayNameFor(model => model.Focus[0].FocusName)
+                        </th>
+                        <th class="align-middle" style="width: 30%">
+                            @Html.DisplayNameFor(model => model.Focus[0].Specialization.SpecializationName)
+                        </th>
+                        <th class="align-middle" style="width: 20%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Focus)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FocusName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Specialization.SpecializationName)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Coordinator/Management/Focus/Details" asp-route-id="@item.FocusId">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <a class="btn btn-secondary" asp-page="/Coordinator/Management/Index">Back to Settings</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#focus').DataTable();
+    });
+</script>

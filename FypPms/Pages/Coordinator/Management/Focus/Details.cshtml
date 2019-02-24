@@ -1,0 +1,52 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.Focus.DetailsModel
+
+@{
+    ViewData["Title"] = "Focus Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Focus.FocusName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Focus.FocusName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Focus.DateCreated)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Focus.DateCreated)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Focus.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Focus.DateModified)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Focus.DateDeleted)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Focus.DateDeleted)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Focus.Specialization.SpecializationName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Focus.Specialization.SpecializationName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" asp-page="/Coordinator/Management/Focus/Edit" asp-route-id="@Model.Focus.FocusId">Edit</a>
+            <a class="btn btn-danger" asp-page="/Coordinator/Management/Focus/Delete" asp-route-id="@Model.Focus.FocusId">Delete</a>
+            <a class="btn btn-secondary" asp-page="/Coordinator/Management/Focus/Index">Back to List</a>
+        </div>
+    </div>
+</div>

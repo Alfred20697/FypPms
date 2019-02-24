@@ -1,0 +1,207 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Project.ViewProposalModel
+@{
+    ViewData["Title"] = "View Proposal";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    Student ID
+                </dt>
+                <dd>
+                    @Model.Student.AssignedId
+                </dd>
+                <dt>
+                    Student Name
+                </dt>
+                <dd>
+                    @Model.Student.StudentName
+                </dd>
+                <dt>
+                    Student Specialization
+                </dt>
+                <dd>
+                    @Model.Student.StudentSpecialization
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-5">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectTitle)
+                </dd>
+                <dt>
+                    Project Specialization
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectCategory)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectCategory)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectFocus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectFocus)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectDescription)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectDescription)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectObjective)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectObjective)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectScope)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectScope)
+                </dd>
+            </dl>
+        </div>
+    </div>
+
+    <form method="post">
+        <div class="row">
+            <div class="col">
+                <small style="color: orange;">* Optional. Assign Co-Supervisor for this project</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Vpf.CoSupervisor" class="control-label" style="font-weight: bold"></label>
+                    <select asp-for="Vpf.CoSupervisor" class="form-control" asp-items="Model.CoSupervisorSelectList">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Vpf.CoSupervisor" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <small style="color: orange;">* Optional. Recommend at most 3 Moderator for this project</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Vpf.ModeratorOne" class="control-label" style="font-weight: bold">Moderator 1</label>
+                    @*<input asp-for="Vpf.ModeratorOne" class="form-control" />*@
+                    <select asp-for="Vpf.ModeratorOne" class="form-control" asp-items="Model.CoSupervisorSelectList">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Vpf.ModeratorOne" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Vpf.ModeratorTwo" class="control-label" style="font-weight: bold">Moderator 2</label>
+                    @*<small style="color: orange;">* Optional. Recommend Moderator for this project</small>*@
+                    @*<input asp-for="Vpf.ModeratorTwo" class="form-control" />*@
+                    <select asp-for="Vpf.ModeratorTwo" class="form-control" asp-items="Model.CoSupervisorSelectList">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Vpf.ModeratorTwo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Vpf.ModeratorThree" class="control-label" style="font-weight: bold">Moderator 3</label>
+                    @*<small style="color: orange;">* Optional. Recommend Moderator for this project</small>*@
+                    @*<input asp-for="Vpf.ModeratorThree" class="form-control" />*@
+                    <select asp-for="Vpf.ModeratorThree" class="form-control" asp-items="Model.CoSupervisorSelectList">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Vpf.ModeratorThree" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <small style="color: red;">* Please fill in if the proposal needs modification or is rejected.</small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Vpf.Comment" class="control-label" style="font-weight: bold"></label>
+                    <textarea asp-for="Vpf.Comment" class="form-control" rows="6" id="comment"></textarea>
+                    <span asp-validation-for="Vpf.Comment" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @if (Model.Proposal.ProposalStatus != "Require Modification" && Model.Proposal.ProposalStatus != "Rejected")
+                {
+                    <button class="btn btn-success" asp-page="/Supervisor/Project/ViewProposal" asp-page-handler="Accept" asp-route-id="@Model.Proposal.ProposalId">Accept Proposal</button>
+                    <button class="btn btn-warning" asp-page="/Supervisor/Project/ViewProposal" asp-page-handler="Modify" asp-route-id="@Model.Proposal.ProposalId">Require Modification</button>
+                    <button class="btn btn-danger" asp-page="/Supervisor/Project/ViewProposal" asp-page-handler="Reject" asp-route-id="@Model.Proposal.ProposalId">Reject Proposal</button>
+                }
+                else
+                {
+                    <p>There is no modification from student yet.</p>
+                }
+            </div>
+        </div>
+    </form>
+    <br />
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-secondary" asp-page="/Supervisor/Project/ReceivedProposal">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('comment');
+</script>

@@ -1,0 +1,41 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.Session.EditModel
+
+@{
+    ViewData["Title"] = "Edit Session";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Session.SessionId" />
+                <div class="form-group">
+                    <label asp-for="Session.SessionName" class="control-label"></label>
+                    <input asp-for="Session.SessionName" class="form-control" />
+                    <span asp-validation-for="Session.SessionName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Session.DateCreated" class="control-label"></label>
+                    <input asp-for="Session.DateCreated" class="form-control" readonly />
+                    <span asp-validation-for="Session.DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Session.DateModified" class="control-label"></label>
+                    <input asp-for="Session.DateModified" class="form-control" readonly />
+                    <span asp-validation-for="Session.DateModified" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Session.DateDeleted" class="control-label"></label>
+                    <input asp-for="Session.DateDeleted" class="form-control" readonly />
+                    <span asp-validation-for="Session.DateDeleted" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Coordinator/Management/Session/Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

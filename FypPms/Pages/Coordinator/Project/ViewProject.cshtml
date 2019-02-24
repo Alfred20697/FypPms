@@ -1,0 +1,214 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Project.ViewProjectModel
+@{
+    ViewData["Title"] = "View Project";
+}
+
+<style>
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Project Information</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectTitle)
+                </dd>
+                <dt>
+                    Supervisor
+                </dt>
+                <dd>
+                    @Model.SupervisorPairs[Model.Project.SupervisorId]
+                </dd>
+                @if (Model.Project.CoSupervisorId != null)
+                {
+                    <dt>
+                        Co-Supervisor
+                    </dt>
+                    <dd>
+                        @Model.SupervisorPairs[Model.Project.CoSupervisorId]
+                    </dd>
+                }
+                else
+                {
+                    <dt>
+                        Co-Supervisor
+                    </dt>
+                    <dd>
+                        None
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectType)
+                </dd>
+                <dt>
+                    Project Specialization
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectCategory)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectCategory)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectFocus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectFocus)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-8">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectDescription)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectDescription)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectObjective)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectObjective)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectScope)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectScope)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Company Information</h4>
+            <dl class="dl-horizontal">
+                @if (Model.Project.ProjectCollaboration)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.ProjectCompany)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.ProjectCompany)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.CompanyContact)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.CompanyContact)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.CompanyContactPhone)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.CompanyContactPhone)
+                    </dd>
+                }
+                else
+                {
+                    <p>No company information</p>
+                }
+            </dl>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Student Information</h4>
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.NumberOfStudent)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.NumberOfStudent)
+                </dd>
+                @if (Model.Project.NumberOfStudent == 2)
+                {
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.StudentOneSubtitle)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.StudentOneSubtitle)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.StudentOneWork)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.Project.StudentOneWork)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.StudentTwoSubtitle)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.StudentTwoSubtitle)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.StudentTwoWork)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.Project.StudentTwoWork)
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentName)
+                </dt>
+                <dd>
+                    @if (Model.Student != null)
+                    {
+                        <a asp-page="/Coordinator/Student/ViewStudent" asp-route-id="@Model.Student.StudentId">
+                            @Html.DisplayFor(model => model.Student.StudentName)
+                        </a>
+                    }
+                </dd>
+
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary" asp-page="/Coordinator/Project/Index">Back to List</a>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,131 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Moderation.ModeratedStudentModel
+@{
+    ViewData["Title"] = "Moderated Student";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.WeeklyLogs.Count() > 0)
+            {
+                <h4>Project Title: @Model.WeeklyLogs[0].Project.ProjectTitle</h4>
+                <h5>Weekly Log</h5>
+                <table class="table table-responsive-md" id="log">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 12%">
+                                @Html.DisplayNameFor(model => model.WeeklyLogs[0].WeeklyLogNumber)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                @Html.DisplayNameFor(model => model.WeeklyLogs[0].WeeklyLogDate)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                @Html.DisplayNameFor(model => model.WeeklyLogs[0].WeeklyLogStatus)
+                            </th>
+                            <th class="align-middle" style="width: 37%">
+                                @Html.DisplayNameFor(model => model.WeeklyLogs[0].Comment)
+                            </th>
+                            <th class="align-middle" style="width: 20%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.WeeklyLogs)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WeeklyLogNumber)
+                                </td>
+                                <td>
+                                    @item.WeeklyLogDate.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.WeeklyLogStatus)
+                                </td>
+                                <td>
+                                    @Html.Raw(item.Comment)
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Supervisor/Moderation/ViewWeeklyLog" asp-route-id="@item.WeeklyLogId">View Weekly Log</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>There is no weekly log/report submission for this project yet.</p>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Submissions.Count() > 0)
+            {
+                <h5>Report Submission</h5>
+                <table class="table table-responsive-md" id="submission">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Submissions[0].SubmissionName)
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Submissions[0].SubmissionStatus)
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Submissions[0].SubmissionFile)
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Submissions[0].UploadDate)
+                            </th>
+                            <th class="align-middle" style="width: 20%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Submissions)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubmissionName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubmissionStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SubmissionFile)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UploadDate)
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-primary" asp-page="/Supervisor/Moderation/ModeratedStudent" asp-route-id="@item.SubmissionId" asp-page-handler="Download">Download File</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary" asp-page="/Supervisor/Moderation/Index">Back to List</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#log').DataTable();
+        $('#submission').DataTable();
+    });
+</script>

@@ -1,0 +1,115 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Moderation.ViewWeeklyLogModel
+@{
+    ViewData["Title"] = "View Weekly Log";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    @if (Model.WeeklyLog != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Project Title: @Model.WeeklyLog.Project.ProjectTitle</h4>
+                <h5>Meeting No: @Model.WeeklyLog.WeeklyLogNumber</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Student.StudentName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Student.StudentName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Supervisor.SupervisorName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Supervisor.SupervisorName)
+                    </dd>
+                    @if (Model.CoSupervisor != null)
+                    {
+                        <dt>
+                            Co-Supervisor Name
+                        </dt>
+                        <dd>
+                            @Html.DisplayFor(model => model.CoSupervisor.SupervisorName)
+                        </dd>
+                    }
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WeeklyLogStatus)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.WeeklyLog.WeeklyLogStatus)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WeeklyLogDate)
+                    </dt>
+                    <dd>
+                        @Model.WeeklyLog.WeeklyLogDate.ToShortDateString()
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WeeklyLogSession)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.WeeklyLog.WeeklyLogSession)
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-8">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WorkDone)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.WorkDone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.WorkToBeDone)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.WorkToBeDone)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.Problem)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.Problem)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.WeeklyLog.Comment)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.WeeklyLog.Comment)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+
+        <br />
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-secondary" asp-page="/Supervisor/Moderation/ModeratedStudent" asp-route-id="@Model.WeeklyLog.ProjectId">Back to List</a>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <a class="btn btn-secondary" asp-page="/Supervisor/Moderation/Index">Back to List</a>
+            </div>
+        </div>
+    }
+
+</div>

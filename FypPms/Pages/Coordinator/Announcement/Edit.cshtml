@@ -1,0 +1,62 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Announcement.EditModel
+
+@{
+    ViewData["Title"] = "Edit Announcement";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Announcement.AnnouncementType" class="control-label"></label>
+                    <select asp-for="Announcement.AnnouncementType" asp-items="Model.TypeSelectList" class="form-control"></select>
+                    <span asp-validation-for="Announcement.AnnouncementType" class="text-danger"></span>
+                </div>
+                <input type="hidden" asp-for="Announcement.AnnouncementId" />
+                <div class="form-group">
+                    <label asp-for="Announcement.AnnouncementSubject" class="control-label"></label>
+                    <input asp-for="Announcement.AnnouncementSubject" class="form-control" />
+                    <span asp-validation-for="Announcement.AnnouncementSubject" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Announcement.AnnouncementBody" class="control-label"></label>
+                    <textarea asp-for="Announcement.AnnouncementBody" class="form-control" rows="6" id="body"></textarea>
+                    <span asp-validation-for="Announcement.AnnouncementBody" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Announcement.AnnouncementStatus" class="control-label"></label>
+                    <input asp-for="Announcement.AnnouncementStatus" class="form-control" readonly />
+                    <span asp-validation-for="Announcement.AnnouncementStatus" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Announcement.DateCreated" class="control-label"></label>
+                    <input asp-for="Announcement.DateCreated" class="form-control" readonly />
+                    <span asp-validation-for="Announcement.DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Announcement.DateModified" class="control-label"></label>
+                    <input asp-for="Announcement.DateModified" class="form-control" readonly />
+                    <span asp-validation-for="Announcement.DateModified" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Announcement.DateDeleted" class="control-label"></label>
+                    <input asp-for="Announcement.DateDeleted" class="form-control" readonly />
+                    <span asp-validation-for="Announcement.DateDeleted" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Coordinator/Announcement/Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('body');
+</script>

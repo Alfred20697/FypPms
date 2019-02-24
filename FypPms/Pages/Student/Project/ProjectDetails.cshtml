@@ -1,0 +1,120 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Student.Project.ProjectDetailsModel
+@{
+    ViewData["Title"] = "Project Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectTitle)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorName)
+                </dd>
+                <dt>
+                    Co-Supervisor Name
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CoSupervisor.SupervisorName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectStatus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectStatus)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Specialization.SpecializationName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Specialization.SpecializationName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectCategory)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectCategory)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Project.ProjectFocus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Project.ProjectFocus)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectDescription)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectDescription)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectObjective)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectObjective)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectScope)
+                </dt>
+                <dd>
+                    @Html.Raw(Model.ProjectSpecialization.ProjectScope)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post">
+                @if (Model.CanRequisition)
+                {
+                    <button class="btn btn-primary" asp-route-id="@Model.Project.ProjectId">Send Project Requisition</button>
+                }
+                <a class="btn btn-secondary" asp-page="/Student/Project/ProjectList">Back to List</a>
+            </form>
+            <div>
+                <p>You can only have either one requisition or one proposal at a time.</p>
+                **Project Requisition request can be used to book this title with the supervisor. Each student can only have one requisition at a time. Your requisition request needs to be rejected before you can make another request. To do so (get rejected), you have to contact the supervisor individually.
+            </div>
+        </div>
+    </div>
+</div>
+

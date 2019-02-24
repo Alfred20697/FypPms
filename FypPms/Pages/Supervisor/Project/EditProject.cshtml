@@ -1,0 +1,100 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Project.EditProjectModel
+@{
+    ViewData["Title"] = "Edit Project";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Epf.Type" class="control-label"></label>
+                    <select asp-for="Epf.Type" class="form-control" asp-items="ViewBag.Type" id="project" onclick="toggleProject()">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Epf.Type" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-md-12">
+                <div class="form-group toggleProject" style="display: none;">
+                    <label asp-for="Epf.Title" class="control-label"></label>
+                    <input asp-for="Epf.Title" class="form-control" />
+                    <span asp-validation-for="Epf.Title" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleProject" style="display: none;">
+                    <label asp-for="Epf.Description" class="control-label"></label>
+                    <textarea asp-for="Epf.Description" class="form-control" rows="10" id="description"></textarea>
+                    <span asp-validation-for="Epf.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleProject" style="display: none;">
+                    <label asp-for="Epf.Objective" class="control-label"></label>
+                    <textarea asp-for="Epf.Objective" class="form-control" rows="10" id="objective"></textarea>
+                    <span asp-validation-for="Epf.Objective" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleProject" style="display: none;">
+                    <label asp-for="Epf.Scope" class="control-label"></label>
+                    <textarea asp-for="Epf.Scope" class="form-control" rows="10" id="scope"></textarea>
+                    <span asp-validation-for="Epf.Scope" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Epf.Reason" class="control-label"></label>
+                    <textarea asp-for="Epf.Reason" class="form-control" rows="10" id="reason" required></textarea>
+                    <span asp-validation-for="Epf.Reason" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button class="btn btn-success" asp-route-id="@Model.Project.ProjectId">Send Change Request</button>
+                    <a class="btn btn-danger" asp-page="/Supervisor/Project/ViewProject">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleProject() {
+        var select = document.getElementById("project");
+        var selectValue = select.options[select.selectedIndex].value;
+        console.log(selectValue)
+        var projectForm = document.querySelectorAll(".toggleProject");
+
+        if (selectValue === "Edit Project") {
+            projectForm.forEach(function (project) {
+                project.style.display = "block";
+            });
+        }
+        else {
+            projectForm.forEach(function (project) {
+                project.style.display = "none";
+            });
+        }
+    }
+</script>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('description');
+    CKEDITOR.replace('objective');
+    CKEDITOR.replace('scope');
+    CKEDITOR.replace('reason');
+</script>
+

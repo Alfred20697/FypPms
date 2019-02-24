@@ -1,0 +1,74 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Project.EditProjectModel
+@{
+    ViewData["Title"] = "Edit Project";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Epf.Type" class="control-label"></label>
+                    <select asp-for="Epf.Type" class="form-control" asp-items="ViewBag.Type" id="supervisor" onclick="toggleSupervisor()">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Epf.Type" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group toggleSupervisor" style="display: none;">
+                    <label asp-for="Supervisor.SupervisorName" class="control-label">Current Supervisor</label>
+                    <input asp-for="Supervisor.SupervisorName" class="form-control" readonly />
+                    <span asp-validation-for="Supervisor.SupervisorName" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group toggleSupervisor" style="display: none;">
+                    <label asp-for="Epf.Supervisor" class="control-label"></label>
+                    <select asp-for="Epf.Supervisor" class="form-control" asp-items="Model.SupervisorList"></select>
+                    <span asp-validation-for="Epf.Supervisor" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button class="btn btn-success" asp-route-id="@Model.Project.ProjectId">Save</button>
+                    <a class="btn btn-danger" asp-page="/Coordinator/Project/Index">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleSupervisor() {
+        var select = document.getElementById("supervisor");
+        var selectValue = select.options[select.selectedIndex].value;
+        var supervisorForm = document.querySelectorAll(".toggleSupervisor");
+
+        if (selectValue === "Edit Supervisor") {
+            supervisorForm.forEach(function (project) {
+                project.style.display = "block";
+            });
+        }
+        else {
+            supervisorForm.forEach(function (project) {
+                project.style.display = "none";
+            });
+        }
+    }
+</script>

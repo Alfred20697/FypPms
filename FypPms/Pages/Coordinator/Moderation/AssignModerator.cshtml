@@ -1,0 +1,133 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Moderation.AssignModeratorModel
+@{
+    ViewData["Title"] = "Assign Moderator";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        @if (Model.Project != null)
+        {
+            <div class="col-md-6">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.ProjectTitle)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.ProjectTitle)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.ProjectType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.ProjectType)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                    </dd>
+                    @if (Model.Project.ModeratorOne != null)
+                    {
+                        <dt>
+                            Recommended Moderator 1
+                        </dt>
+                        <dd>
+                            @Model.SupervisorPairs[Model.Project.ModeratorOne]
+                            <p>Moderated Students for this supervisor: @Model.SupervisorModerationPairs[Model.Project.ModeratorOne]</p>
+                        </dd>
+                    }
+                    else
+                    {
+                        <dt>
+                            Recommended Moderator
+                        </dt>
+                        <dd>
+                            There is no recommended moderator
+                        </dd>
+                    }
+                    @if (Model.Project.ModeratorTwo != null)
+                    {
+                        <dt>
+                            Recommended Moderator 2
+                        </dt>
+                        <dd>
+                            @Model.SupervisorPairs[Model.Project.ModeratorTwo]
+                            <p>Moderated Students for this supervisor: @Model.SupervisorModerationPairs[Model.Project.ModeratorTwo]</p>
+                        </dd>
+                    }
+                    @if (Model.Project.ModeratorThree != null)
+                    {
+                        <dt>
+                            Recommended Moderator 3
+                        </dt>
+                        <dd>
+                            @Model.SupervisorPairs[Model.Project.ModeratorThree]
+                            <p>Moderated Students for this supervisor: @Model.SupervisorModerationPairs[Model.Project.ModeratorThree]</p>
+                        </dd>
+                    }
+                </dl>
+            </div>
+            <div class="col-md-6">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Mf.Moderator" class="control-label" style="font-weight: bold;"></label>
+                        <select asp-for="Mf.Moderator" class="form-control moderator" asp-items="Model.ModeratorSelectList">
+                            <option value="">N/A</option>
+                        </select>
+                        <p><span>Moderated Students for this supervisor: <span class="result"></span></span></p>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Assign" asp-route-id="@Model.Project.ProjectId" class="btn btn-primary" />
+                        <a class="btn btn-secondary" asp-page="/Coordinator/Moderation/Index">Back to List</a>
+                    </div>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-12">
+                <p>Project does not exist.</p>
+                <p><a class="btn btn-secondary" asp-page="/Coordinator/Moderation/Index">Back to List</a></p>
+            </div>
+        }
+    </div>
+</div>
+
+@if (Model.Project != null)
+{
+    <script>
+        let id = @Model.Project.ProjectId;
+        let moderatorCount = {};
+
+        $(function () {
+            $.get('/Coordinator/Moderation/AssignModerator/' + id + '?handler=Count').done(function (counts) {
+                $.each(counts, function (id, count) {
+                    moderatorCount[id] = count;
+                });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $("select.moderator").change(function () {
+
+                var selectedModerator = $(this).children("option:selected").val();
+
+                $('.result').text(moderatorCount[selectedModerator]);
+            });
+        });
+    </script>
+}

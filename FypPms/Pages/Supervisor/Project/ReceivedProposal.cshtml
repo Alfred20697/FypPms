@@ -1,0 +1,112 @@
+﻿@page
+@model FypPms.Pages.Supervisor.Project.ReceivedProposalModel
+@{
+    ViewData["Title"] = "Received Proposal";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+            @{
+                if (Model.ProposalCount == 0)
+                {
+                    <p>You have not received any proposal yet. </p>
+                }
+                else
+                {
+                    <table class="table table-responsive-md" id="proposal">
+                        <thead style="background-color: #69000D; color: #fff;">
+                            <tr>
+                                <th class="align-middle" style="width: 12.5%">
+                                    @Html.DisplayNameFor(model => model.Proposals[0].Project.AssignedId)
+                                </th>
+                                <th class="align-middle" style="width: 27.5%">
+                                    @Html.DisplayNameFor(model => model.Proposals[0].Project)
+                                </th>
+                                <th class="align-middle" style="width: 20%">
+                                    @Html.DisplayNameFor(model => model.Proposals[0].ProposalStatus)
+                                </th>
+                                <th class="align-middle" style="width: 20%">
+                                    @Html.DisplayNameFor(model => model.Proposals[0].Sender)
+                                </th>
+                                <th class="align-middle" style="width: 20%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Proposals)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project.AssignedId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project.ProjectTitle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProposalStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sender)
+                                    </td>
+                                    <td>
+                                        @if (item.ProposalStatus.Equals("New"))
+                                        {
+                                            <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProposal" asp-route-id="@item.ProposalId">View Proposal</a>
+                                        }
+                                        @if (item.ProposalStatus.Equals("Require Modification") && item.Project.ProjectStatus != "In Review")
+                                        {
+                                            <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProposal" asp-route-id="@item.ProposalId">View Proposal</a>
+                                        }
+                                        @if (item.ProposalStatus.Equals("Require Modification") && item.Project.ProjectStatus == "In Review")
+                                        {
+                                            <a class="btn btn-outline-info" asp-page="/Supervisor/Project/EditProposal" asp-route-id="@item.ProposalId">Edit Proposal</a>
+                                        }
+                                        @if (item.ProposalStatus.Equals("Accepted"))
+                                        {
+                                            <form method="post">
+                                                <button class="btn btn-outline-primary" asp-page-handler="Review" asp-route-id="@item.ProposalId" type="submit">Request For Review</button>
+                                            </form>
+                                        }
+                                        @if (item.ProposalStatus.Equals("Rejected"))
+                                        {
+                                            <span class="text-danger">Proposal Rejected.</span>
+                                        }
+                                        @if (item.ProposalStatus.Equals("In Review") || (item.ProposalStatus.Equals("Modified") && item.Project.ProjectStatus != "New"))
+                                        {
+                                            <span class="text-info">Review Requested</span>
+                                        }
+                                        @if (item.ProposalStatus.Equals("Modified") && item.Project.ProjectStatus == "New")
+                                        {
+                                            <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProposal" asp-route-id="@item.ProposalId">View Proposal</a>
+                                        }
+                                        @if (item.ProposalStatus.Equals("Approved"))
+                                        {
+                                            <form method="post">
+                                                <button class="btn btn-outline-primary" asp-route-id="@item.ProposalId" asp-page-handler="Accept" type="submit">Accept Student</button>
+                                            </form>
+                                        }
+                                        @if (item.ProposalStatus.Equals("Failed"))
+                                        {
+                                            <span class="text-danger">Proposal failed because the student had been assigned to a project.</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#proposal').DataTable();
+    });
+</script>

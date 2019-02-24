@@ -1,0 +1,106 @@
+﻿@page
+@model FypPms.Pages.Student.Project.NewProposalModel
+@{
+    ViewData["Title"] = "New Proposal";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Project.ProjectTitle" class="control-label"></label>
+                    <input asp-for="Project.ProjectTitle" class="form-control" />
+                    <span asp-validation-for="Project.ProjectTitle" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="ProjectSpecialization.SpecializationId" class="control-label"></label>
+                    <select asp-for="ProjectSpecialization.SpecializationId" class="form-control" asp-items="ViewBag.Specialization"></select>
+                    <span asp-validation-for="ProjectSpecialization.SpecializationId" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Project.ProjectType" class="control-label"></label>
+                    <select asp-for="Project.ProjectType" class="form-control" asp-items="ViewBag.ProjectType"></select>
+                    <span asp-validation-for="Project.ProjectType" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Project.ProjectCategory" class="control-label"></label>
+                    <select asp-for="Project.ProjectCategory" class="form-control" asp-items="ViewBag.ProjectCategory"></select>
+                    <span asp-validation-for="Project.ProjectCategory" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Project.ProjectFocus" class="control-label"></label>
+                    <select asp-for="Project.ProjectFocus" class="form-control" asp-items="ViewBag.ProjectFocus"></select>
+                    <span asp-validation-for="Project.ProjectFocus" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="ProjectSpecialization.ProjectDescription" class="control-label"></label>
+                    <textarea asp-for="ProjectSpecialization.ProjectDescription" class="form-control" rows="10" id="description"></textarea>
+                    <span asp-validation-for="ProjectSpecialization.ProjectDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectSpecialization.ProjectObjective" class="control-label"></label>
+                    <textarea asp-for="ProjectSpecialization.ProjectObjective" class="form-control" rows="10" id="objective"></textarea>
+                    <span asp-validation-for="ProjectSpecialization.ProjectObjective" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectSpecialization.ProjectScope" class="control-label"></label>
+                    <textarea asp-for="ProjectSpecialization.ProjectScope" class="form-control" rows="10" id="scope"></textarea>
+                    <span asp-validation-for="ProjectSpecialization.ProjectScope" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Please select <span style="font-weight: bold;">ONE</span> supervisor for this project. </label>
+                    <select asp-for="Project.SupervisorId" class="form-control" asp-items="ViewBag.Supervisor"></select>
+                    <span asp-validation-for="Project.SupervisorId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" value="Propose" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Student/Project/MyProposal">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('description');
+    CKEDITOR.replace('objective');
+    CKEDITOR.replace('scope');
+</script>

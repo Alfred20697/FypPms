@@ -1,0 +1,46 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.Specialization.DetailsModel
+
+@{
+    ViewData["Title"] = "Specialization Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Specialization.SpecializationName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Specialization.SpecializationName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Specialization.DateCreated)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Specialization.DateCreated)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Specialization.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Specialization.DateModified)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Specialization.DateDeleted)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Specialization.DateDeleted)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" asp-page="/Coordinator/Management/Specialization/Edit" asp-route-id="@Model.Specialization.SpecializationId">Edit</a>
+            <a class="btn btn-danger" asp-page="/Coordinator/Management/Specialization/Delete" asp-route-id="@Model.Specialization.SpecializationId">Delete</a>
+            <a class="btn btn-secondary" asp-page="/Coordinator/Management/Specialization/Index">Back to List</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,236 @@
+﻿@page
+@model FypPms.Pages.Supervisor.Project.NewProposalModel
+@{
+    ViewData["Title"] = "New Proposal";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Project.ProjectTitle" class="control-label"></label>
+                    <input asp-for="Project.ProjectTitle" class="form-control" />
+                    <span asp-validation-for="Project.ProjectTitle" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Project.CoSupervisorId" class="control-label"></label>
+                    <select asp-for="Project.CoSupervisorId" class="form-control" asp-items="ViewBag.CoSupervisor">
+                        <option value="">N/A</option>
+                    </select>
+                    <small id="CoSupervisorHelpBlock" class="form-text text-muted">
+                        Use N/A is there is no Co-Supervisor
+                    </small>
+                    <span asp-validation-for="Project.CoSupervisorId" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Project.ModeratorOne" class="control-label"></label>
+                    <select asp-for="Project.ModeratorOne" class="form-control" asp-items="ViewBag.CoSupervisor">
+                        <option value="">N/A</option>
+                    </select>
+                    <small id="ModeratorHelpBlock" class="form-text text-muted">
+                        Suggest at most three moderator.
+                    </small>
+                    <span asp-validation-for="Project.ModeratorOne" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Project.ModeratorTwo" class="control-label"></label>
+                    <select asp-for="Project.ModeratorTwo" class="form-control" asp-items="ViewBag.CoSupervisor">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Project.ModeratorTwo" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Project.ModeratorThree" class="control-label"></label>
+                    <select asp-for="Project.ModeratorThree" class="form-control" asp-items="ViewBag.CoSupervisor">
+                        <option value="">N/A</option>
+                    </select>
+                    <span asp-validation-for="Project.ModeratorThree" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="control-label">Specialization</label>
+                    <select asp-for="ProjectSpecialization.SpecializationId" class="form-control" asp-items="ViewBag.Specialization"></select>
+                    <span asp-validation-for="ProjectSpecialization.SpecializationId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Project.ProjectType" class="control-label"></label>
+                    <select asp-for="Project.ProjectType" class="form-control" asp-items="ViewBag.ProjectType"></select>
+                    <span asp-validation-for="Project.ProjectType" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Project.ProjectCategory" class="control-label"></label>
+                    <select asp-for="Project.ProjectCategory" class="form-control" asp-items="ViewBag.ProjectCategory"></select>
+                    <span asp-validation-for="Project.ProjectCategory" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Project.ProjectFocus" class="control-label"></label>
+                    <select asp-for="Project.ProjectFocus" class="form-control" asp-items="ViewBag.ProjectFocus"></select>
+                    <span asp-validation-for="Project.ProjectFocus" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="ProjectSpecialization.ProjectDescription" class="control-label"></label>
+                    <textarea asp-for="ProjectSpecialization.ProjectDescription" class="form-control" rows="10" id="description"></textarea>
+                    <span asp-validation-for="ProjectSpecialization.ProjectDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectSpecialization.ProjectObjective" class="control-label"></label>
+                    <textarea asp-for="ProjectSpecialization.ProjectObjective" class="form-control" rows="10" id="objective"></textarea>
+                    <span asp-validation-for="ProjectSpecialization.ProjectObjective" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProjectSpecialization.ProjectScope" class="control-label"></label>
+                    <textarea asp-for="ProjectSpecialization.ProjectScope" class="form-control" rows="10" id="scope"></textarea>
+                    <span asp-validation-for="ProjectSpecialization.ProjectScope" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h4>Company Information (Optional)</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="Project.ProjectCollaboration" id="collab" onclick="toggleCollab()" /> @Html.DisplayNameFor(model => model.Project.ProjectCollaboration)
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group toggleCollab" style="display: none;">
+                    <label asp-for="Project.ProjectCompany" class="control-label"></label>
+                    <input asp-for="Project.ProjectCompany" class="form-control" />
+                    <span asp-validation-for="Project.ProjectCompany" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleCollab" style="display: none;">
+                    <label asp-for="Project.CompanyContact" class="control-label"></label>
+                    <input asp-for="Project.CompanyContact" class="form-control" />
+                    <span asp-validation-for="Project.CompanyContact" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleCollab" style="display: none;">
+                    <label asp-for="Project.CompanyContactPhone" class="control-label"></label>
+                    <input asp-for="Project.CompanyContactPhone" class="form-control" />
+                    <span asp-validation-for="Project.CompanyContactPhone" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <h4>Student Information (Optional)</h4>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Project.NumberOfStudent" class="control-label"></label>
+                    <select asp-for="Project.NumberOfStudent" class="form-control" asp-items="ViewBag.NumberOfStudent" id="student" onclick="toggleStudent()"></select>
+                    <span asp-validation-for="Project.NumberOfStudent" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group toggleStudent" style="display: none;">
+                    <label asp-for="Project.StudentOneSubtitle" class="control-label"></label>
+                    <input asp-for="Project.StudentOneSubtitle" class="form-control" />
+                    <span asp-validation-for="Project.StudentOneSubtitle" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleStudent" style="display: none;">
+                    <label asp-for="Project.StudentOneWork" class="control-label"></label>
+                    <textarea asp-for="Project.StudentOneWork" class="form-control" rows="10" id="workone"></textarea>
+                    <span asp-validation-for="Project.StudentOneWork" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleStudent" style="display: none;">
+                    <label asp-for="Project.StudentTwoSubtitle" class="control-label"></label>
+                    <input asp-for="Project.StudentTwoSubtitle" class="form-control" />
+                    <span asp-validation-for="Project.StudentTwoSubtitle" class="text-danger"></span>
+                </div>
+                <div class="form-group toggleStudent" style="display: none;">
+                    <label asp-for="Project.StudentTwoWork" class="control-label"></label>
+                    <textarea asp-for="Project.StudentTwoWork" class="form-control" rows="10" id="worktwo"></textarea>
+                    <span asp-validation-for="Project.StudentTwoWork" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Propose" class="btn btn-success" />
+            <a class="btn btn-danger" asp-page="/Supervisor/Project/MyProposal">Cancel</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    function toggleCollab() {
+        var checkBox = document.getElementById("collab");
+        
+        var collabForm = document.querySelectorAll(".toggleCollab");
+        
+        if (checkBox.checked == true) {
+            collabForm.forEach(function (collab) {
+                collab.style.display = "block";
+            });
+        } else {
+            collabForm.forEach(function (collab) {
+                collab.style.display = "none";
+            });
+        }
+    }
+
+    function toggleStudent() {
+        var select = document.getElementById("student");
+        var selectValue = select.options[select.selectedIndex].value;
+        
+        var studentForm = document.querySelectorAll(".toggleStudent");
+        
+        if (selectValue == 2) {
+            studentForm.forEach(function (student) {
+                student.style.display = "block";
+            });
+        } else {
+            studentForm.forEach(function (student) {
+                student.style.display = "none";
+            });
+        }
+    }
+</script>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('description');
+    CKEDITOR.replace('objective');
+    CKEDITOR.replace('scope');
+    CKEDITOR.replace('workone');
+    CKEDITOR.replace('worktwo');
+</script>

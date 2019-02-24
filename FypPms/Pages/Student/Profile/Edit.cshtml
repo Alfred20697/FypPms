@@ -1,0 +1,84 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Student.Profile.EditModel
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container">
+    <div class="col-md-4">
+        <div>
+            <p class="text-success">@Model.SuccessMessage</p>
+            <p class="text-danger">@Model.ErrorMessage</p>
+        </div>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Student.StudentId" />
+            <input type="hidden" asp-for="Student.UserId" />
+            <input type="hidden" asp-for="Student.BatchId" />
+            <div class="form-group">
+                <label asp-for="Student.AssignedId" class="control-label"></label>
+                <input asp-for="Student.AssignedId" class="form-control" readonly />
+                <span asp-validation-for="Student.AssignedId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentName" class="control-label"></label>
+                <input asp-for="Student.StudentName" class="form-control" readonly/>
+                <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentStatus" class="control-label"></label>
+                <input asp-for="Student.StudentStatus" class="form-control" readonly />
+                <span asp-validation-for="Student.StudentStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentGender" class="control-label"></label>
+                <input asp-for="Student.StudentGender" class="form-control" />
+                <span asp-validation-for="Student.StudentGender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentSpecialization" class="control-label"></label>
+                <input asp-for="Student.StudentSpecialization" class="form-control" readonly />
+                <span asp-validation-for="Student.StudentSpecialization" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentPhone" class="control-label"></label>
+                <input asp-for="Student.StudentPhone" class="form-control" />
+                <span asp-validation-for="Student.StudentPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentEmail" class="control-label"></label>
+                <input asp-for="Student.StudentEmail" class="form-control" readonly/>
+                <span asp-validation-for="Student.StudentEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentAltEmail" class="control-label"></label>
+                <input asp-for="Student.StudentAltEmail" class="form-control" />
+                <span asp-validation-for="Student.StudentAltEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Student.BatchId" class="control-label"></label>
+                <input asp-for="Student.Batch.BatchName" class="form-control" readonly />
+                <span asp-validation-for="Student.BatchId" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Student.DateCreated" class="control-label"></label>
+                <input asp-for="Student.DateCreated" class="form-control" readonly />
+                <span asp-validation-for="Student.DateCreated" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Student.DateModified" class="control-label"></label>
+                <input asp-for="Student.DateModified" class="form-control" readonly />
+                <span asp-validation-for="Student.DateModified" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display: none;">
+                <label asp-for="Student.DateDeleted" class="control-label"></label>
+                <input asp-for="Student.DateDeleted" class="form-control" readonly />
+                <span asp-validation-for="Student.DateDeleted" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" />
+                <input type="submit" value="Cancel" asp-page-handler="Cancel" class="btn btn-danger" />
+            </div>
+        </form>
+    </div>
+</div>

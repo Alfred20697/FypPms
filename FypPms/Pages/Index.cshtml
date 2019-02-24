@@ -1,0 +1,81 @@
+﻿@page
+@model FypPms.Pages.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <h2>Announcement</h2>
+            @foreach (var item in Model.Announcements)
+            {
+                <div class="card">
+
+                    <div class="card-header text-white" style="background-color: #00695c;">
+                        @item.AnnouncementSubject
+                    </div>
+                    <div class="card-body">
+                        @Html.Raw(item.AnnouncementBody)
+                        @if (item.AttachmentFile != null)
+                        {
+                            <span>Attachment: </span>
+                            <a class="btn-link" asp-page="/Index" asp-route-id="@item.AnnouncementId" asp-page-handler="Download"> @item.AttachmentFile</a>
+                        }
+                        <br />
+                        <br />
+                        <p class="card-text">
+                            @item.DateCreated
+                            @if (item.DateModified == null)
+                            {
+                                <span>(New)</span>
+                            }
+                            else
+                            {
+                                <span>(Edited)</span>
+                            }
+                        </p>
+                    </div>
+                </div>
+                <br />
+            }
+        </div>
+        <div class="col-md-4">
+            <form method="post">
+                <h2>Login</h2>
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="loginData.UserName" class="control-label"></label>
+                    <input asp-for="loginData.UserName" class="form-control" required autofocus />
+                    <span asp-validation-for="loginData.UserName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="loginData.Password" class="control-label"></label>
+                    <input asp-for="loginData.Password" class="form-control" required />
+                    <span asp-validation-for="loginData.Password" class="text-danger"></span>
+                </div>
+                @*<div class="checkbox mb-3">
+                <label>
+                    <input asp-for="loginData.RememberMe" type="checkbox" value="remember-me"> Remember me
+                </label>
+                <span asp-validation-for="loginData.RememberMe" class="text-danger"></span>
+            </div>*@
+                <div class="form-group">
+                    <a asp-page="/Account/ForgetPassword" style="text-decoration: underline" class="">Forget Password?</a>
+                </div>
+
+                <button class="btn btn-lg btn-block" style="background-color: #00695c; color: #fff;" type="submit">Log in</button>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,86 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Student.Progress.EditWeeklyLogModel
+@{
+    ViewData["Title"] = "Edit Weekly Log";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+                <p class="text-info">Please make changes accordingly with reference to the comments.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <dl class="dl-horizontal" style="border: 2px double; padding: 5px;">
+                <dt>Comments for Meeting No @Model.WeeklyLog.WeeklyLogNumber:</dt>
+                <dd>@Html.Raw(Model.WeeklyLog.Comment)</dd>
+            </dl>
+        </div>
+    </div>
+    <form method="post">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>Project Title: @Model.Project.ProjectTitle</h4>
+                <h5>Meeting No: @Model.WeeklyLog.WeeklyLogNumber</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="Ef.Date" class="control-label"></label>
+                    <input asp-for="Ef.Date" class="form-control" type="date" />
+                    <span asp-validation-for="Ef.Date" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Ef.WorkDone" class="control-label"></label>
+                    <small style="color: #e9001d;">
+                        [**Compulsory. Please write the details of the work done after the last meeting.]
+                    </small>
+                    <textarea asp-for="Ef.WorkDone" class="form-control" rows="10" id="workdone"></textarea>
+                    <span asp-validation-for="Ef.WorkDone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ef.WorkToBeDone" class="control-label"></label>
+                    <small style="color: #e9001d;">
+                        [Please write the details of the work to be done after the last meeting, if any.]
+                    </small>
+                    <textarea asp-for="Ef.WorkToBeDone" class="form-control" rows="10" id="worktobedone"></textarea>
+                    <span asp-validation-for="Ef.WorkToBeDone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Ef.Problem" class="control-label"></label>
+                    <small style="color: #e9001d;">
+                        [Please write the problems faced between each meeting, if any.]
+                    </small>
+                    <textarea asp-for="Ef.Problem" class="form-control" rows="10" id="problem"></textarea>
+                    <span asp-validation-for="Ef.Problem" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <button class="btn btn-success" asp-page="/Student/Progress/EditWeeklyLog" asp-route-id="@Model.WeeklyLog.WeeklyLogId">Submit Changes</button>
+                    <a class="btn btn-danger" asp-page="/Student/Progress/Index">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('workdone');
+    CKEDITOR.replace('worktobedone');
+    CKEDITOR.replace('problem');
+</script>

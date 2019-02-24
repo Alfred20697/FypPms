@@ -1,0 +1,98 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Moderation.IndexModel
+@{
+    ViewData["Title"] = "Moderation";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Projects.Count() == 0)
+            {
+                <p>All project had been assigned moderator.</p>
+            }
+            else
+            {
+                <table class="table table-responsive-md" id="moderator">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 12.5%">
+                                @Html.DisplayNameFor(model => model.Projects[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 17.5%">
+                                @Html.DisplayNameFor(model => model.Projects[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Supervisor
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Recommended Moderator 1
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Recommended Moderator 2
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Recommended Moderator 3
+                            </th>
+                            <th class="align-middle" style="width: 10%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Projects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Model.SupervisorPairs[item.SupervisorId]
+                                </td>
+                                <td>
+                                    @if (item.ModeratorOne != null)
+                                    {
+                                        @Model.SupervisorPairs[item.ModeratorOne]
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.ModeratorTwo != null)
+                                    {
+                                        @Model.SupervisorPairs[item.ModeratorTwo]
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.ModeratorThree != null)
+                                    {
+                                        @Model.SupervisorPairs[item.ModeratorThree]
+                                    }
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-primary" asp-page="/Coordinator/Moderation/AssignModerator" asp-route-id="@item.ProjectId">Assign Moderator</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#moderator').DataTable({
+            "pageLength": 50
+        });
+    });
+</script>

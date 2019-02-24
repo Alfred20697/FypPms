@@ -1,0 +1,71 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Profile.EditModel
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Supervisor.SupervisorId" />
+                <input type="hidden" asp-for="Supervisor.UserId" />
+                <div class="form-group">
+                    <label asp-for="Supervisor.AssignedId" class="control-label"></label>
+                    <input asp-for="Supervisor.AssignedId" class="form-control" readonly />
+                    <span asp-validation-for="Supervisor.AssignedId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Supervisor.SupervisorName" class="control-label"></label>
+                    <input asp-for="Supervisor.SupervisorName" class="form-control" readonly/>
+                    <span asp-validation-for="Supervisor.SupervisorName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Supervisor.SupervisorStatus" class="control-label"></label>
+                    <input asp-for="Supervisor.SupervisorStatus" class="form-control" readonly />
+                    <span asp-validation-for="Supervisor.SupervisorStatus" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Supervisor.SupervisorGender" class="control-label"></label>
+                    <input asp-for="Supervisor.SupervisorGender" class="form-control" />
+                    <span asp-validation-for="Supervisor.SupervisorGender" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Supervisor.SupervisorSpecialization" class="control-label"></label>
+                    <input asp-for="Supervisor.SupervisorSpecialization" class="form-control" readonly/>
+                    <span asp-validation-for="Supervisor.SupervisorSpecialization" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Supervisor.SupervisorPhone" class="control-label"></label>
+                    <input asp-for="Supervisor.SupervisorPhone" class="form-control" />
+                    <span asp-validation-for="Supervisor.SupervisorPhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Supervisor.SupervisorEmail" class="control-label"></label>
+                    <input asp-for="Supervisor.SupervisorEmail" class="form-control" />
+                    <span asp-validation-for="Supervisor.SupervisorEmail" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                        <label asp-for="Supervisor.DateCreated" class="control-label"></label>
+                        <input asp-for="Supervisor.DateCreated" class="form-control" />
+                        <span asp-validation-for="Supervisor.DateCreated" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="display: none;">
+                        <label asp-for="Supervisor.DateModified" class="control-label"></label>
+                        <input asp-for="Supervisor.DateModified" class="form-control" />
+                        <span asp-validation-for="Supervisor.DateModified" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="display: none;">
+                        <label asp-for="Supervisor.DateDeleted" class="control-label"></label>
+                        <input asp-for="Supervisor.DateDeleted" class="form-control" />
+                        <span asp-validation-for="Supervisor.DateDeleted" class="text-danger"></span>
+                    </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                    <input type="submit" value="Cancel" asp-page-handler="Cancel" class="btn btn-danger" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

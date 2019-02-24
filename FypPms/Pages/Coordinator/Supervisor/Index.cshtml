@@ -1,0 +1,93 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Supervisor.IndexModel
+@{
+    ViewData["Title"] = "Supervisors";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-responsive-md" style="text-align: center;" id="supervisor">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.Supervisors[0].AssignedId)
+                        </th>
+                        <th class="align-middle" style="width: 25%">
+                            @Html.DisplayNameFor(model => model.Supervisors[0].SupervisorName)
+                        </th>
+                        <th class="align-middle" style="width: 20%">
+                            @Html.DisplayNameFor(model => model.Supervisors[0].SupervisorStatus)
+                        </th>
+                        <th class="align-middle" style="width: 20%;">
+                            Number Of Projects
+                        </th>
+                        <th class="align-middle" style="width: 10%">Is Active</th>
+                        <th class="align-middle" style="width: 10%">Is Committee Member</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Supervisors)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssignedId)
+                            </td>
+                            <td>
+                                <a class="btn-link" style="color: black" asp-page="/Coordinator/Supervisor/ViewSupervisor" asp-route-id="@item.SupervisorId">
+                                    @Html.DisplayFor(modelItem => item.SupervisorName)
+                                </a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SupervisorStatus)
+                            </td>
+                            <td style="text-align: center;">
+                                @Model.SupervisorProjectCount[item.AssignedId]
+                            </td>
+                            <td>
+                                <form method="post">
+                                    @if (item.SupervisorStatus == "Active")
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Supervisor/Index" asp-page-handler="Inactive" asp-route-id="@item.SupervisorId">Set Inactive</button>
+                                    }
+                                    @if (item.SupervisorStatus == "Inactive")
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Supervisor/Index" asp-page-handler="Active" asp-route-id="@item.SupervisorId">Set Active</button>
+                                    }
+                                </form>
+                            </td>
+                            <td>
+                                <form method="post">
+                                    @if (item.IsCommittee)
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Supervisor/Index" asp-page-handler="NotCommittee" asp-route-id="@item.SupervisorId">Unset Committee</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-outline-primary" asp-page="/Coordinator/Supervisor/Index" asp-page-handler="Committee" asp-route-id="@item.SupervisorId">Set Committee</button>
+                                    }
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#supervisor').DataTable({
+            "pageLength": 50
+        });
+    });
+</script>

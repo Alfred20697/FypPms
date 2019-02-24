@@ -1,0 +1,52 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.Category.DetailsModel
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category.CategoryName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category.CategoryName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category.DateCreated)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category.DateCreated)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category.DateModified)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category.DateDeleted)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category.DateDeleted)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Category.Specialization.SpecializationName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Category.Specialization.SpecializationName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" asp-page="/Coordinator/Management/Category/Edit" asp-route-id="@Model.Category.CategoryId">Edit</a>
+            <a class="btn btn-danger" asp-page="/Coordinator/Management/Category/Delete" asp-route-id="@Model.Category.CategoryId">Delete</a>
+            <a class="btn btn-secondary" asp-page="/Coordinator/Management/Category/Index">Back to List</a>
+        </div>
+    </div>
+</div>

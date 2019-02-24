@@ -1,0 +1,55 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.Focus.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete Focus";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Are you sure you want to delete this?</h3>
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Focus.FocusName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Focus.FocusName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Focus.DateCreated)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Focus.DateCreated)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Focus.DateModified)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Focus.DateModified)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Focus.DateDeleted)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Focus.DateDeleted)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Focus.Specialization.SpecializationName)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Focus.Specialization.SpecializationName)
+                    </dd>
+                </dl>
+
+                <form method="post">
+                    <input type="hidden" asp-for="Focus.FocusId" />
+                    <input type="submit" value="Delete" class="btn btn-danger" />
+                    <a class="btn btn-secondary" asp-page="/Coordinator/Management/Focus/Index">Back to List</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

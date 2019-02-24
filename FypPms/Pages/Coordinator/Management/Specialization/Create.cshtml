@@ -1,0 +1,40 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.Specialization.CreateModel
+
+@{
+    ViewData["Title"] = "New Specialization";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Specialization.SpecializationName" class="control-label"></label>
+                    <input asp-for="Specialization.SpecializationName" class="form-control" />
+                    <span asp-validation-for="Specialization.SpecializationName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Specialization.DateCreated" class="control-label"></label>
+                    <input asp-for="Specialization.DateCreated" class="form-control" readonly/>
+                    <span asp-validation-for="Specialization.DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Specialization.DateModified" class="control-label"></label>
+                    <input asp-for="Specialization.DateModified" class="form-control" readonly/>
+                    <span asp-validation-for="Specialization.DateModified" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Specialization.DateDeleted" class="control-label"></label>
+                    <input asp-for="Specialization.DateDeleted" class="form-control" readonly/>
+                    <span asp-validation-for="Specialization.DateDeleted" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Coordinator/Management/Specialization/Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

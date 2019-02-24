@@ -1,0 +1,344 @@
+﻿@page
+@model FypPms.Pages.Supervisor.Project.MyProjectModel
+@{
+    ViewData["Title"] = "My Project";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        @if (Model.MyProject.Count() > 0)
+        {
+
+            @if (Model.TakenProject.Count() > 0)
+            {
+                <h4>Assigned Project</h4>
+                <table class="table table-responsive-md" id="project1">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 40%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].ProjectStatus)
+                            </th>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].ProjectType)
+                            </th>
+                            @*<th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.TakenProject[0].ProjectCategory)
+                                </th>
+                                <th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.TakenProject[0].ProjectFocus)
+                                </th>*@
+                            <th class="align-middle" style="width: 15%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TakenProject)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectType)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.ProjectCategory)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectFocus)
+                                    </td>*@
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProject" asp-route-id="@item.ProjectId">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+            }
+
+            @if (Model.CoSuperviseProject.Count() > 0)
+            {
+                <h4>Co-Supervised Project</h4>
+                <table class="table table-responsive-md" id="project2">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.CoSuperviseProject[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 25%;">
+                                @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectStatus)
+                            </th>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectType)
+                            </th>
+                            @*<th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectCategory)
+                                </th>
+                                <th class="align-middle" style="width: 12%;">
+                                    @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectFocus)
+                                </th>*@
+                            <th class="align-middle" style="width: 15%;">
+                                Supervisor
+                            </th>
+                            <th class="align-middle" style="width: 15%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CoSuperviseProject)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectType)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.ProjectCategory)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectFocus)
+                                    </td>*@
+                                <td>
+                                    @Model.SupervisorPairs[item.SupervisorId]
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProject" asp-route-id="@item.ProjectId">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+            }
+
+            <h4>Available Project</h4>
+            <table class="table table-responsive-md" id="project3">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 15%;">
+                            @Html.DisplayNameFor(model => model.MyProject[0].AssignedId)
+                        </th>
+                        <th class="align-middle" style="width: 40%;">
+                            @Html.DisplayNameFor(model => model.MyProject[0].ProjectTitle)
+                        </th>
+                        <th class="align-middle" style="width: 15%;">
+                            @Html.DisplayNameFor(model => model.MyProject[0].ProjectStatus)
+                        </th>
+                        <th class="align-middle" style="width: 15%;">
+                            @Html.DisplayNameFor(model => model.MyProject[0].ProjectType)
+                        </th>
+                        @*<th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.MyProject[0].ProjectCategory)
+                            </th>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.MyProject[0].ProjectFocus)
+                            </th>*@
+                        <th class="align-middle" style="width: 15%;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.MyProject)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssignedId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProjectTitle)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProjectStatus)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProjectType)
+                            </td>
+                            @*<td>
+                                    @Html.DisplayFor(modelItem => item.ProjectCategory)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectFocus)
+                                </td>*@
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProject" asp-route-id="@item.ProjectId">View Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+        }
+        else
+        {
+            @if (Model.TakenProject.Count() > 0)
+            {
+                <h4>Assigned Project</h4>
+                <table class="table table-responsive-md" id="project4">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 40%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].ProjectStatus)
+                            </th>
+                            <th class="align-middle" style="width: 15%;">
+                                @Html.DisplayNameFor(model => model.TakenProject[0].ProjectType)
+                            </th>
+                            @*<th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.TakenProject[0].ProjectCategory)
+                                </th>
+                                <th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.TakenProject[0].ProjectFocus)
+                                </th>*@
+                            <th class="align-middle" style="width: 15%;">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.TakenProject)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectType)
+                                </td>
+                                @*<td>
+                                        @Html.DisplayFor(modelItem => item.ProjectCategory)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectFocus)
+                                    </td>*@
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProject" asp-route-id="@item.ProjectId">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+            }
+            else
+            {
+                @if (Model.CoSuperviseProject.Count() > 0)
+                {
+                    <h4>Co-Supervised Project</h4>
+                    <table class="table table-responsive-md" id="project5">
+                        <thead style="background-color: #69000D; color: #fff;">
+                            <tr>
+                                <th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.CoSuperviseProject[0].AssignedId)
+                                </th>
+                                <th class="align-middle" style="width: 25%;">
+                                    @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectTitle)
+                                </th>
+                                <th class="align-middle" style="width: 15%;">
+                                <th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectStatus)
+                                </th>
+                                <th class="align-middle" style="width: 15%;">
+                                    @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectType)
+                                </th>
+                                @*<th class="align-middle" style="width: 15%;">
+                                        @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectCategory)
+                                    </th>
+                                    <th class="align-middle" style="width: 12%;">
+                                        @Html.DisplayNameFor(model => model.CoSuperviseProject[0].ProjectFocus)
+                                    </th>*@
+                                <th class="align-middle" style="width: 15%;">
+                                    Supervisor
+                                </th>
+                                <th class="align-middle" style="width: 15%;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CoSuperviseProject)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.AssignedId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ProjectType)
+                                    </td>
+                                    @*<td>
+                                            @Html.DisplayFor(modelItem => item.ProjectCategory)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ProjectFocus)
+                                        </td>*@
+                                    <td>
+                                        @Model.SupervisorPairs[item.SupervisorId]
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-outline-info" asp-page="/Supervisor/Project/ViewProject" asp-route-id="@item.ProjectId">View Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    <br />
+                }
+                else
+                {
+                    <p>You have no project yet.</p>
+                }
+            }
+        }
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#project1').DataTable();
+        $('#project2').DataTable();
+        $('#project3').DataTable();
+        $('#project4').DataTable();
+        $('#project5').DataTable();
+    });
+</script>

@@ -1,0 +1,73 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Moderation.ListModel
+@{
+    ViewData["Title"] = "Moderation List";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Projects.Count() == 0)
+            {
+                <p>No project had been assigned moderator.</p>
+            }
+            else
+            {
+                <table class="table table-responsive-md" id="moderator">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 12.5%">
+                                @Html.DisplayNameFor(model => model.Projects[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 37.5%">
+                                @Html.DisplayNameFor(model => model.Projects[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 25%">
+                                Supervisor
+                            </th>
+                            <th class="align-middle" style="width: 25%">
+                                Assigned Moderator
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Projects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Model.SupervisorPairs[item.SupervisorId]
+                                </td>
+                                <td>
+                                    @Model.SupervisorPairs[item.ModeratorId]
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#moderator').DataTable({
+            "pageLength": 50
+        });
+    });
+</script>

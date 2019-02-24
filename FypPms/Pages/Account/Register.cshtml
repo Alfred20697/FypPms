@@ -1,0 +1,60 @@
+﻿@page
+@model FypPms.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container">
+    <div class="col-md-4 offset-md-4">
+        <h2>Register</h2>
+
+        <p>Student Registration for FYP</p>
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Student.AssignedId" class="control-label"></label>
+                <input asp-for="Student.AssignedId" class="form-control" required/>
+                <span asp-validation-for="Student.AssignedId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentName" class="control-label"></label>
+                <input asp-for="Student.StudentName" class="form-control" required/>
+                <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentSpecialization" class="control-label"></label>
+                <select asp-for="Student.StudentSpecialization" class="form-control" asp-items="ViewBag.SpecializationId" required></select>
+                <span asp-validation-for="Student.StudentSpecialization" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.BatchId" class="control-label"></label>
+                <select asp-for="Student.BatchId" class="form-control" asp-items="ViewBag.BatchId" required></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentGender" class="control-label"></label>
+                @*<input asp-for="Student.StudentGender" class="form-control" />*@
+                <select asp-for="Student.StudentGender" class="form-control" asp-items="@((List<SelectListItem>)ViewData["Numbers"])" required></select>
+                <span asp-validation-for="Student.StudentGender" class="text-danger"></span>
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="Student.StudentPhone" class="control-label"></label>
+                <input asp-for="Student.StudentPhone" class="form-control" required/>
+                <span asp-validation-for="Student.StudentPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentEmail" class="control-label"></label>
+                <input asp-for="Student.StudentEmail" class="form-control" required/>
+                <span asp-validation-for="Student.StudentEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.StudentAltEmail" class="control-label"></label>
+                <input asp-for="Student.StudentAltEmail" class="form-control" required/>
+                <span asp-validation-for="Student.StudentAltEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-lg btn-primary btn-block" style="color: #fff; background-color: #00695c;" />
+            </div>
+        </form>
+    </div>
+</div>

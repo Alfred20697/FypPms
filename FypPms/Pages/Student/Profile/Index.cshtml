@@ -1,0 +1,87 @@
+﻿@page
+@model FypPms.Pages.Student.Profile.IndexModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+            <a class="btn btn-outline-info" asp-page="/Student/Profile/Edit" asp-route-id="@Model.Student.StudentId">Edit Profile</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentName)
+                </dd>
+                <dt>
+                    Password
+                </dt>
+                <dd>
+                    Click <a asp-page="/Student/Profile/ChangePassword" class="text-info">here</a> to change password
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentStatus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentStatus)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentGender)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentGender)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentSpecialization)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentSpecialization)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentEmail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentAltEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentAltEmail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.Batch)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.Batch.BatchName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+</div>

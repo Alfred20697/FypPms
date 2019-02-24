@@ -1,0 +1,58 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.Batch.DetailsModel
+
+@{
+    ViewData["Title"] = "Batch Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Batch.BatchName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Batch.BatchName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Batch.BatchStartDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Batch.BatchStartDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Batch.BatchEndDate)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Batch.BatchEndDate)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Batch.DateCreated)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Batch.DateCreated)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Batch.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Batch.DateModified)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Batch.DateDeleted)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Batch.DateDeleted)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" asp-page="/Coordinator/Management/Batch/Edit" asp-route-id="@Model.Batch.BatchId">Edit</a>
+            <a class="btn btn-danger" asp-page="/Coordinator/Management/Batch/Delete" asp-route-id="@Model.Batch.BatchId">Delete</a>
+            <a class="btn btn-secondary" asp-page="/Coordinator/Management/Batch/Index">Back to List</a>
+        </div>
+    </div>
+</div>

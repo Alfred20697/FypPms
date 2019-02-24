@@ -1,0 +1,198 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Student.ViewStudentModel
+@{
+    ViewData["Title"] = "View Student";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Student Information</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentStatus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentStatus)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentGender)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentGender)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentSpecialization)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentSpecialization)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentEmail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.StudentAltEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.StudentAltEmail)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Student.Batch)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Student.Batch.BatchName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Project Information</h4>
+        </div>
+    </div>
+    @if (Model.Project != null)
+    {
+        <div class="row">
+            <div class="col-md-4">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.AssignedId)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.AssignedId)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.ProjectTitle)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.ProjectTitle)
+                    </dd>
+                    <dt>
+                        Supervisor
+                    </dt>
+                    <dd>
+                        @Model.Supervisor.SupervisorName
+                    </dd>
+                    @if (Model.Project.CoSupervisorId != null)
+                    {
+                        <dt>
+                            Co-Supervisor
+                        </dt>
+                        <dd>
+                            @Model.CoSupervisor.SupervisorName
+                        </dd>
+                    }
+                    else
+                    {
+                        <dt>
+                            Co-Supervisor
+                        </dt>
+                        <dd>
+                            None
+                        </dd>
+                    }
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.ProjectType)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.ProjectType)
+                    </dd>
+                    <dt>
+                        Project Specialization
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.ProjectCategory)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.ProjectCategory)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Project.ProjectFocus)
+                    </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Project.ProjectFocus)
+                    </dd>
+                </dl>
+            </div>
+            <div class="col-md-8">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectDescription)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.ProjectSpecialization.ProjectDescription)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectObjective)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.ProjectSpecialization.ProjectObjective)
+                    </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.ProjectSpecialization.ProjectScope)
+                    </dt>
+                    <dd>
+                        @Html.Raw(Model.ProjectSpecialization.ProjectScope)
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <p>This student has no project yet.</p>
+            </div>
+        </div>
+    }
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary" asp-page="/Coordinator/Student/Index">Back to List</a>
+        </div>
+    </div>
+</div>
+

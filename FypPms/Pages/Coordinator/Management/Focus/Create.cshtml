@@ -1,0 +1,45 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.Focus.CreateModel
+
+@{
+    ViewData["Title"] = "New Focus";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Focus.FocusName" class="control-label"></label>
+                    <input asp-for="Focus.FocusName" class="form-control" />
+                    <span asp-validation-for="Focus.FocusName" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Focus.DateCreated" class="control-label"></label>
+                    <input asp-for="Focus.DateCreated" class="form-control" readonly/>
+                    <span asp-validation-for="Focus.DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Focus.DateModified" class="control-label"></label>
+                    <input asp-for="Focus.DateModified" class="form-control" readonly/>
+                    <span asp-validation-for="Focus.DateModified" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Focus.DateDeleted" class="control-label"></label>
+                    <input asp-for="Focus.DateDeleted" class="form-control" readonly/>
+                    <span asp-validation-for="Focus.DateDeleted" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Focus.SpecializationId" class="control-label"></label>
+                    <select asp-for="Focus.SpecializationId" class="form-control" asp-items="ViewBag.SpecializationId"></select>
+                    <span asp-validation-for="Focus.SpecializationId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Coordinator/Management/Focus/Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

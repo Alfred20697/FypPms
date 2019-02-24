@@ -1,0 +1,114 @@
+﻿@page
+@model FypPms.Pages.Student.Project.ProjectListModel
+@{
+    ViewData["Title"] = "Project List";
+}
+
+<div class="container">
+    <div class="col-md-12">
+        <div>
+            <p class="text-success">@Model.SuccessMessage</p>
+            <p class="text-danger">@Model.ErrorMessage</p>
+        </div>
+        <form method="get">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Filter by Specialization</label>
+                        <select name="specializationStr" asp-items="Model.SpecializationSelectList" class="form-control">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Filter by Supervisor</label>
+                        <select name="supervisorStr" asp-items="Model.SupervisorSelectList" class="form-control">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="control-label">Filter by Project Type</label>
+                        <select name="typeStr" asp-items="Model.TypeSelectList" class="form-control">
+                            <option value="">All</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <input type="submit" value="Filter" class="btn btn-secondary" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <br />
+
+        <table class="table table-responsive-md" id="project">
+            <thead style="background-color: #69000D; color: #fff;">
+                <tr>
+                    <th class="align-middle" style="width: 12.5%">
+                        @Html.DisplayNameFor(model => model.Projects[0].AssignedId)
+                    </th>
+                    <th class="align-middle" style="width: 27.5%">
+                        @Html.DisplayNameFor(model => model.Projects[0].ProjectTitle)
+                    </th>
+                    <th class="align-middle" style="width: 15%">
+                        @Html.DisplayNameFor(model => model.Projects[0].ProjectType)
+                    </th>
+                    <th class="align-middle" style="width: 15%">
+                        Supervisor Name
+                    </th>
+                    <th class="align-middle" style="width: 15%">
+                        Specialization
+                    </th>
+                    @*<th class="align-middle">
+                            @Html.DisplayNameFor(model => model.Projects[0].ProjectStatus)
+                        </th>*@
+                    <th class="align-middle" style="width: 15%">
+                        Project Details
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Projects)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.AssignedId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectType)
+                        </td>
+                        <td>
+                            @Model.SupervisorPairs[item.SupervisorId]
+                        </td>
+                        <td>
+                            @Model.ProjectSpecializations.First(x => x.ProjectId == item.ProjectId).Specialization.SpecializationName
+                        </td>
+                        @*<td>
+                                @Html.DisplayFor(modelItem => item.ProjectStatus)
+                            </td>*@
+                        <td>
+                            <a class="btn btn-outline-info" asp-page="/Student/Project/ProjectDetails" asp-route-id="@item.ProjectId">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#project').DataTable();
+    });
+</script>

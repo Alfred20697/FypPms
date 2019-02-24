@@ -1,0 +1,84 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Project.ChangeRequest.IndexModel
+@{
+    ViewData["Title"] = "Change Requests";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.ChangeRequests.Count() > 0)
+            {
+                <table class="table table-responsive-md" id="changerequest">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 15%">
+                                @Html.DisplayNameFor(model => model.ChangeRequests[0].Project.AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.ChangeRequests[0].Project.ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                @Html.DisplayNameFor(model => model.ChangeRequests[0].ChangeRequestType)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                @Html.DisplayNameFor(model => model.ChangeRequests[0].ChangeRequestStatus)
+                            </th>
+                            <th class="align-middle" style="width: 22.5%">
+                                @Html.DisplayNameFor(model => model.ChangeRequests[0].ReasonToChange)
+                            </th>
+                            <th class="align-middle" style="width: 12.5%">
+                                Action
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ChangeRequests)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Project.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Project.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChangeRequestType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ChangeRequestStatus)
+                                </td>
+                                <td>
+                                    @Html.Raw(item.ReasonToChange)
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Coordinator/Project/ChangeRequest/View" asp-route-id="@item.ChangeRequestId">View</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>There is no change request yet.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#changerequest').DataTable({
+            "pageLength": 50
+        });
+    });
+</script>

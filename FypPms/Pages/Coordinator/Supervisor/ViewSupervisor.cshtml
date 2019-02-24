@@ -1,0 +1,172 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Supervisor.ViewSupervisorModel
+@{
+    ViewData["Title"] = "View Supervisor";
+}
+
+<style>
+    a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Supervisor Information</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorStatus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorStatus)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorGender)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorGender)
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorSpecialization)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorSpecialization)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorEmail)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Project Information</h4>
+        </div>
+    </div>
+    @if (Model.SuperviseProjects.Count() > 0)
+    {
+        <h5>Supervised Project</h5>
+        foreach (var item in Model.SuperviseProjects)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Project ID: @item.AssignedId</p>
+                </div>
+                <div class="col-md-6">
+                    <a asp-page="/Coordinator/Project/ViewProject" asp-route-id="@item.ProjectId"><p>Project Title: @item.ProjectTitle</p></a>
+                </div>
+                <div class="col-md-4">
+                    <p>Project Status: @item.ProjectStatus</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <p>There is no supervised project yet.</p>
+            </div>
+        </div>
+    }
+
+    @if (Model.CoSuperviseProjects.Count() > 0)
+    {
+        <h5>Co-Supervised Project</h5>
+        foreach (var item in Model.CoSuperviseProjects)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Project ID: @item.AssignedId</p>
+                </div>
+                <div class="col-md-6">
+                    <a asp-page="/Coordinator/Project/ViewProject" asp-route-id="@item.ProjectId"><p>Project Title: @item.ProjectTitle</p></a>
+                </div>
+                <div class="col-md-4">
+                    <p>Project Status: @item.ProjectStatus</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <p>There is no co-supervised project yet.</p>
+            </div>
+        </div>
+    }
+
+    @if (Model.ModerateProjects.Count() > 0)
+    {
+        <h5>Moderated Project</h5>
+        foreach (var item in Model.ModerateProjects)
+        {
+            <div class="row">
+                <div class="col-md-2">
+                    <p>Project ID: @item.AssignedId</p>
+                </div>
+                <div class="col-md-6">
+                    <a asp-page="/Coordinator/Project/ViewProject" asp-route-id="@item.ProjectId"><p>Project Title: @item.ProjectTitle</p></a>
+                </div>
+                <div class="col-md-4">
+                    <p>Project Status: @item.ProjectStatus</p>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <p>There is no moderated project yet.</p>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary" asp-page="/Coordinator/Supervisor/Index">Back to List</a>
+        </div>
+    </div>
+</div>

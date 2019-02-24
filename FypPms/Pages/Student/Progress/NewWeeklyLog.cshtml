@@ -1,0 +1,138 @@
+﻿@page
+@model FypPms.Pages.Student.Progress.NewWeeklyLogModel
+@{
+    ViewData["Title"] = "Create Weekly Log";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @if (Model.Project != null)
+            {
+                <h4>Project Title: @Model.Project.ProjectTitle</h4>
+            }
+        </div>
+    </div>
+    <br />
+    <form method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row">
+            @if (Model.CoSupervisor != null)
+            {
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Student.StudentName" class="control-label"></label>
+                        <input asp-for="Student.StudentName" class="form-control" readonly />
+                        <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="Supervisor.SupervisorName" class="control-label"></label>
+                        <input asp-for="Supervisor.SupervisorName" class="form-control" readonly />
+                        <span asp-validation-for="Supervisor.SupervisorName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label asp-for="CoSupervisor.SupervisorName" class="control-label"></label>
+                        <input asp-for="CoSupervisor.SupervisorName" class="form-control" readonly />
+                        <span asp-validation-for="CoSupervisor.SupervisorName" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Student.StudentName" class="control-label"></label>
+                        <input asp-for="Student.StudentName" class="form-control" readonly />
+                        <span asp-validation-for="Student.StudentName" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Supervisor.SupervisorName" class="control-label"></label>
+                        <input asp-for="Supervisor.SupervisorName" class="form-control" readonly />
+                        <span asp-validation-for="Supervisor.SupervisorName" class="text-danger"></span>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Cf.WeeklyLogNumber" class="control-label"></label>
+                    <select asp-for="Cf.WeeklyLogNumber" class="form-control" asp-items="ViewBag.Number"></select>
+                    <span asp-validation-for="Cf.WeeklyLogNumber" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Cf.Date" class="control-label"></label>
+                    <input asp-for="Cf.Date" class="form-control" type="date" />
+                    <span asp-validation-for="Cf.Date" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label asp-for="Cf.Session" class="control-label"></label>
+                    <select asp-for="Cf.Session" class="form-control" asp-items="Model.SessionList"></select>
+                    <span asp-validation-for="Cf.Session" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label asp-for="Cf.WorkDone" class="control-label"></label>
+                    <small style="color: #e9001d;">
+                        [**Compulsory. Please write the details of the work done after the last meeting.]
+                    </small>
+                    <textarea asp-for="Cf.WorkDone" class="form-control" rows="10" id="workdone" required></textarea>
+                    <span asp-validation-for="Cf.WorkDone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cf.WorkToBeDone" class="control-label"></label>
+                    <small style="color: #e9001d;">
+                        [Please write the details of the work to be done after the last meeting, if any.]
+                    </small>
+                    <textarea asp-for="Cf.WorkToBeDone" class="form-control" rows="10" id="worktobedone"></textarea>
+                    <span asp-validation-for="Cf.WorkToBeDone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cf.Problem" class="control-label"></label>
+                    <small style="color: #e9001d;">
+                        [Please write the problems faced between each meeting, if any.]
+                    </small>
+                    <textarea asp-for="Cf.Problem" class="form-control" rows="10" id="problem"></textarea>
+                    <span asp-validation-for="Cf.Problem" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Student/Progress/Index">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('workdone');
+    CKEDITOR.replace('worktobedone');
+    CKEDITOR.replace('problem');
+</script>

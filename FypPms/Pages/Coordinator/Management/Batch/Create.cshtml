@@ -1,0 +1,50 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.Batch.CreateModel
+
+@{
+    ViewData["Title"] = "New Batch";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Batch.BatchName" class="control-label"></label>
+                    <input asp-for="Batch.BatchName" class="form-control" />
+                    <span asp-validation-for="Batch.BatchName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Batch.BatchStartDate" class="control-label"></label>
+                    <input asp-for="Batch.BatchStartDate" class="form-control" type="date"/>
+                    <span asp-validation-for="Batch.BatchStartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Batch.BatchEndDate" class="control-label"></label>
+                    <input asp-for="Batch.BatchEndDate" class="form-control" type="date"/>
+                    <span asp-validation-for="Batch.BatchEndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Batch.DateCreated" class="control-label"></label>
+                    <input asp-for="Batch.DateCreated" class="form-control" readonly/>
+                    <span asp-validation-for="Batch.DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Batch.DateModified" class="control-label"></label>
+                    <input asp-for="Batch.DateModified" class="form-control" readonly/>
+                    <span asp-validation-for="Batch.DateModified" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="Batch.DateDeleted" class="control-label"></label>
+                    <input asp-for="Batch.DateDeleted" class="form-control" readonly/>
+                    <span asp-validation-for="Batch.DateDeleted" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Coordinator/Management/Batch/Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

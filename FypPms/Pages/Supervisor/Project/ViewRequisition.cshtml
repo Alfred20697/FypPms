@@ -1,0 +1,82 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Project.ViewRequisitionModel
+@{
+    ViewData["Title"] = "View Requisition";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <dl class="dl-horizontal">
+                <dt>
+                    Student ID
+                </dt>
+                <dd>
+                    @Model.Student.AssignedId
+                </dd>
+                <dt>
+                    Student Name
+                </dt>
+                <dd>
+                    @Model.Student.StudentName
+                </dd>
+                <dt>
+                    Student Specialization
+                </dt>
+                <dd>
+                    @Model.Student.StudentSpecialization
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-9">
+            <dl class="dl-horizontal">
+                <dt>
+                    Project ID
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Requisition.Project.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Requisition.Project.ProjectTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Requisition.Project.ProjectTitle)
+                </dd>
+                <dt>
+                    Project Specialization
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="post">
+                @if (Model.IsRequisition)
+                {
+                    <button class="btn btn-success" asp-page="/Supervisor/Project/ViewRequisition" asp-page-handler="Accept" asp-route-id="@Model.Requisition.RequisitionId">Accept Requisition</button>
+                }
+                <button class="btn btn-danger" asp-page="/Supervisor/Project/ViewRequisition" asp-page-handler="Reject" asp-route-id="@Model.Requisition.RequisitionId">Reject Requisition</button>
+            </form>
+            
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <a class="btn btn-secondary" asp-page="/Supervisor/Project/ReceivedRequisition">Back to List</a>
+        </div>
+    </div>
+</div>
+

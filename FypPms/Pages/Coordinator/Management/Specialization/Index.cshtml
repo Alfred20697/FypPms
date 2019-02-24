@@ -1,0 +1,62 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.Specialization.IndexModel
+
+@{
+    ViewData["Title"] = "Project Specialization";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Specialization/Create">Create New</a>
+            </p>
+            <table class="table table-responsive-md" id="specialization">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 80%">
+                            @Html.DisplayNameFor(model => model.Specialization[0].SpecializationName)
+                        </th>
+                        <th class="align-middle" style="width: 20%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Specialization)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.SpecializationName)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Coordinator/Management/Specialization/Details" asp-route-id="@item.SpecializationId">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <a class="btn btn-secondary" asp-page="/Coordinator/Management/Index">Back to Settings</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#specialization').DataTable();
+    });
+</script>

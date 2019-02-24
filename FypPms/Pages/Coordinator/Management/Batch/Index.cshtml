@@ -1,0 +1,74 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.Batch.IndexModel
+
+@{
+    ViewData["Title"] = "Batch";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Batch/Create">Create New</a>
+            </p>
+            <table class="table table-responsive-md" id="batch">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 30%">
+                            @Html.DisplayNameFor(model => model.Batch[0].BatchName)
+                        </th>
+                        <th class="align-middle" style="width: 25%">
+                            @Html.DisplayNameFor(model => model.Batch[0].BatchStartDate)
+                        </th>
+                        <th class="align-middle" style="width: 25%">
+                            @Html.DisplayNameFor(model => model.Batch[0].BatchEndDate)
+                        </th>
+                        <th class="align-middle" style="width: 20%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Batch)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BatchName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BatchStartDate)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.BatchEndDate)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Coordinator/Management/Batch/Details" asp-route-id="@item.BatchId">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-12">
+        <a class="btn btn-secondary" asp-page="/Coordinator/Management/Index">Back to Settings</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#batch').DataTable();
+    });
+</script>

@@ -1,0 +1,139 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Project.IndexModel
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <form method="get">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Filter by Specialization</label>
+                            <select name="specializationStr" asp-items="Model.SpecializationSelectList" class="form-control">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Filter by Supervisor</label>
+                            <select name="supervisorStr" asp-items="Model.SupervisorSelectList" class="form-control">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Filter by Project Type</label>
+                            <select name="typeStr" asp-items="Model.TypeSelectList" class="form-control">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label">Filter by Project Status</label>
+                            <select name="statusStr" asp-items="Model.StatusSelectList" class="form-control">
+                                <option value="">All</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <input type="submit" value="Filter" class="btn btn-secondary" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <br />
+
+            <table class="table table-responsive-md" id="project">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 12.5%">
+                            @Html.DisplayNameFor(model => model.Projects[0].AssignedId)
+                        </th>
+                        <th class="align-middle" style="width: 17.5%">
+                            @Html.DisplayNameFor(model => model.Projects[0].ProjectTitle)
+                            (Details)
+                        </th>
+                        <th class="align-middle" style="width: 12.5%">
+                            @Html.DisplayNameFor(model => model.Projects[0].ProposedBy)
+                        </th>
+                        <th class="align-middle" style="width: 12.5%">
+                            @Html.DisplayNameFor(model => model.Projects[0].ProjectType)
+                        </th>
+                        <th class="align-middle" style="width: 12.5%">
+                            Supervisor Name
+                        </th>
+                        <th class="align-middle" style="width: 12.5%">
+                            Specialization
+                        </th>
+                        <th class="align-middle" style="width: 10%">
+                            @Html.DisplayNameFor(model => model.Projects[0].ProjectStatus)
+                        </th>
+                        <th class="align-middle" style="width: 10%">
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Projects)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AssignedId)
+                            </td>
+                            <td>
+                                <a class="btn-link" style="color: black;" asp-page="/Coordinator/Project/ViewProject" asp-route-id="@item.ProjectId">@Html.DisplayFor(modelItem => item.ProjectTitle)</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProposedBy)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProjectType)
+                            </td>
+                            <td>
+                                @if (item.SupervisorId != null)
+                                {
+                                    @Model.SupervisorPairs[item.SupervisorId]
+                                }
+                            </td>
+                            <td>
+                                @Model.ProjectSpecializations.First(x => x.ProjectId == item.ProjectId).Specialization.SpecializationName
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProjectStatus)
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Coordinator/Project/EditProject" asp-route-id="@item.ProjectId">Edit</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#project').DataTable({
+            "pageLength": 50
+        });
+    });
+</script>

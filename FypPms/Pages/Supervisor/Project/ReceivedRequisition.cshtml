@@ -1,0 +1,89 @@
+﻿@page
+@model FypPms.Pages.Supervisor.Project.ReceivedRequisitionModel
+@{
+    ViewData["Title"] = "Received Requisition";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+            @{
+                if (Model.RequisitionCount == 0)
+                {
+                    <p>You have not received any requisition yet. </p>
+                }
+                else
+                {
+                    <h4>Received Requisition</h4>
+                    <table class="table table-responsive-md" id="requisition">
+                        <thead style="background-color: #69000D; color: #fff;">
+                            <tr>
+                                <th class="align-middle" style="width: 12.5%">
+                                    @Html.DisplayNameFor(model => model.Requisitions[0].Project.AssignedId)
+                                </th>
+                                <th class="align-middle" style="width: 27.5%">
+                                    @Html.DisplayNameFor(model => model.Requisitions[0].Project)
+                                </th>
+                                <th class="align-middle" style="width: 20%">
+                                    @Html.DisplayNameFor(model => model.Requisitions[0].RequisitionStatus)
+                                </th>
+                                <th class="align-middle" style="width: 20%">
+                                    @Html.DisplayNameFor(model => model.Requisitions[0].Sender)
+                                </th>
+                                <th class="align-middle" style="width: 20%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Requisitions)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project.AssignedId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project.ProjectTitle)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RequisitionStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Sender)
+                                    </td>
+                                    <td>
+                                        @if (item.RequisitionStatus.Equals("New"))
+                                        {
+                                            <form method="post">
+                                                <a class="btn btn-outline-primary" asp-page="/Supervisor/Project/ViewRequisition" asp-route-id="@item.RequisitionId">View Requisition</a>
+                                            </form>
+                                        }
+                                        @*@if (item.RequisitionStatus.Equals("Accepted"))
+                                            {
+                                                <form method="post">
+                                                    <button class="btn btn-outline-primary" asp-route-id="@item.RequisitionId" type="submit">Accept Student</button>
+                                                </form>
+                                            }
+                                            @if (item.RequisitionStatus.Equals("Failed"))
+                                            {
+                                                <span class="text-danger">Requisition failed because the student had been assigned to a project.</span>
+                                            }*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#requisition').DataTable();
+    });
+</script>

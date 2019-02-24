@@ -1,0 +1,71 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.SubmissionType.CreateModel
+
+@{
+    ViewData["Title"] = "Create Submission";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="SubmissionType.Name" class="control-label"></label>
+                    <select asp-for="SubmissionType.Name" class="form-control" asp-items="ViewBag.ReportType"></select>
+                    <span asp-validation-for="SubmissionType.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubmissionType.BatchId" class="control-label"></label>
+                    <select asp-for="SubmissionType.BatchId" class="form-control" asp-items="ViewBag.BatchId"></select>
+                    <span asp-validation-for="SubmissionType.BatchId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubmissionType.StartDate" class="control-label"></label>
+                    <input asp-for="SubmissionType.StartDate" class="form-control" type="date" id="startdate"/>
+                    <span asp-validation-for="SubmissionType.StartDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubmissionType.EndDate" class="control-label"></label>
+                    <input asp-for="SubmissionType.EndDate" class="form-control" type="date" id="enddate"/>
+                    <span asp-validation-for="SubmissionType.EndDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubmissionType.GraceDate" class="control-label"></label>
+                    <input asp-for="SubmissionType.GraceDate" class="form-control" type="date" id="gracedate"/>
+                    <span asp-validation-for="SubmissionType.GraceDate" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="SubmissionType.Status" class="control-label"></label>
+                    <input asp-for="SubmissionType.Status" class="form-control" readonly />
+                    <span asp-validation-for="SubmissionType.Status" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="SubmissionType.DateCreated" class="control-label"></label>
+                    <input asp-for="SubmissionType.DateCreated" class="form-control" readonly />
+                    <span asp-validation-for="SubmissionType.DateCreated" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="SubmissionType.DateModified" class="control-label"></label>
+                    <input asp-for="SubmissionType.DateModified" class="form-control" readonly />
+                    <span asp-validation-for="SubmissionType.DateModified" class="text-danger"></span>
+                </div>
+                <div class="form-group" style="display: none;">
+                    <label asp-for="SubmissionType.DateDeleted" class="control-label"></label>
+                    <input asp-for="SubmissionType.DateDeleted" class="form-control" readonly />
+                    <span asp-validation-for="SubmissionType.DateDeleted" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-success" />
+                    <a class="btn btn-danger" asp-page="/Coordinator/Management/SubmissionType/Index">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $('#startdate').datetimepicker({ footer: true, modal: true });
+    $('#enddate').datetimepicker({ footer: true, modal: true });
+    $('#gracedate').datetimepicker({ footer: true, modal: true });
+</script>

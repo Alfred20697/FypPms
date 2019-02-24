@@ -1,0 +1,133 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Review.AssignReviewerModel
+@{
+    ViewData["Title"] = "Assign Reviewer";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p class="text-success">@Model.SuccessMessage</p>
+            <p class="text-danger">@Model.ErrorMessage</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Review.Project.ProjectTitle)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Review.Project.ProjectTitle)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Review.Project.ProposedBy)
+                </dt>
+                <dd>
+                    <span class="text-primary">@Html.DisplayFor(model => model.Review.Project.ProposedBy)</span>
+                </dd>
+                <dt>
+                    Supervisor
+                </dt>
+                <dd>
+                    @Model.SupervisorPairs[Model.Project.SupervisorId]
+                </dd>
+                @if (Model.Project.CoSupervisorId != null)
+                {
+                    <dt>
+                        Co-Supervisor
+                    </dt>
+                    <dd>
+                        @Model.SupervisorPairs[Model.Project.CoSupervisorId]
+                    </dd>
+                }
+                <dt>
+                    @Html.DisplayNameFor(model => model.Review.Project.ProjectType)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Review.Project.ProjectType)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Review.Project.ProjectCategory)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Review.Project.ProjectCategory)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Review.Project.ProjectFocus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Review.Project.ProjectFocus)
+                </dd>
+                <dt>
+                    Project Specialization
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.ProjectSpecialization.Specialization.SpecializationName)
+                </dd>
+                <dt>
+                    Recommended Moderator
+                </dt>
+                <dd>
+                    @if (Model.Project.ModeratorOne != null && Model.Project.ModeratorTwo == null && Model.Project.ModeratorThree == null)
+                    {
+                        <span>@Model.SupervisorPairs[Model.Project.ModeratorOne]</span>
+                    }
+                    @if (Model.Project.ModeratorOne != null && Model.Project.ModeratorTwo != null && Model.Project.ModeratorThree == null)
+                    {
+                        <span>@Model.SupervisorPairs[Model.Project.ModeratorOne], @Model.SupervisorPairs[Model.Project.ModeratorTwo]</span>
+                    }
+                    @if (Model.Project.ModeratorOne != null && Model.Project.ModeratorTwo != null && Model.Project.ModeratorThree != null)
+                    {
+                        <span>@Model.SupervisorPairs[Model.Project.ModeratorOne], @Model.SupervisorPairs[Model.Project.ModeratorTwo], @Model.SupervisorPairs[Model.Project.ModeratorThree]</span>
+                    }
+                </dd>
+            </dl>
+        </div>
+        <div class="col-md-6">
+            <form method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Review.ReviewId" />
+                <input type="hidden" asp-for="Review.ProjectId" />
+                <div class="form-group">
+                    <label asp-for="reviewData.Reviewer" class="control-label" style="font-weight: bold;"></label>
+                    <select asp-for="reviewData.Reviewer" class="form-control reviewer" asp-items="ViewBag.Reviewer">
+                        <option value="">N/A</option>
+                    </select>
+                    <p><span>Pending review count for this supervisor: <span class="result"></span></span></p>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Assign" class="btn btn-primary" />
+                    <a class="btn btn-secondary" asp-page="/Coordinator/Review/Index">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@if (Model.Review != null)
+{
+    <script>
+        let id = @Model.Review.ReviewId;
+        let reviewerCount = {};
+
+        $(function () {
+            $.get('/Coordinator/Review/AssignReviewer/' + id + '?handler=Count').done(function (counts) {
+                $.each(counts, function (id, count) {
+                    reviewerCount[id] = count;
+                });
+            });
+        });
+
+        $(document).ready(function () {
+
+            $("select.reviewer").change(function () {
+
+                var selectedReviewer = $(this).children("option:selected").val();
+                $('.result').text(reviewerCount[selectedReviewer]);
+            });
+        });
+    </script>
+}
+

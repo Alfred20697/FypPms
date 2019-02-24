@@ -1,0 +1,87 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Announcement.IndexModel
+
+@{
+    ViewData["Title"] = "Announcements";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Announcement/Create">Create New</a>
+            </p>
+            <table class="table table-responsive-md" id="announcement">
+                <thead style="background-color: #69000D; color: #fff;">
+                    <tr>
+                        <th class="align-middle" style="width: 20%">
+                            @Html.DisplayNameFor(model => model.Announcement[0].AnnouncementSubject)
+                        </th>
+                        <th class="align-middle" style="width: 27.5%">
+                            @Html.DisplayNameFor(model => model.Announcement[0].AnnouncementBody)
+                        </th>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.Announcement[0].AnnouncementStatus)
+                        </th>
+                        <th class="align-middle" style="width: 15%">
+                            @Html.DisplayNameFor(model => model.Announcement[0].AnnouncementType)
+                        </th>
+                        <th class="align-middle" style="width: 10%">
+                            @Html.DisplayNameFor(model => model.Announcement[0].AttachmentFile)
+                        </th>
+                        <th class="align-middle" style="width: 12.5%">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Announcement)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnnouncementSubject)
+                            </td>
+                            <td>
+                                @Html.Raw(item.AnnouncementBody.Length < 75 ? item.AnnouncementBody : item.AnnouncementBody.Substring(0, 75) + " (...)")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnnouncementStatus)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.AnnouncementType)
+                            </td>
+                            <td>
+                                @if (item.AttachmentFile != null)
+                                {
+                                    <a class="btn-link" asp-page="/Coordinator/Announcement/Index" asp-route-id="@item.AnnouncementId" asp-page-handler="Download">Download</a>
+                                }
+                                else
+                                {
+                                    <span>No file attached</span>
+                                }
+                            </td>
+                            <td>
+                                <a class="btn btn-outline-info" asp-page="/Coordinator/Announcement/Details" asp-route-id="@item.AnnouncementId">Details</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#announcement').DataTable();
+    });
+</script>

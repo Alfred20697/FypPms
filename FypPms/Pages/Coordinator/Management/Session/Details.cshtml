@@ -1,0 +1,46 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Coordinator.Management.Session.DetailsModel
+
+@{
+    ViewData["Title"] = "Session Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Session.SessionName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Session.SessionName)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Session.DateCreated)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Session.DateCreated)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Session.DateModified)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Session.DateModified)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Session.DateDeleted)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Session.DateDeleted)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <a class="btn btn-primary" asp-page="/Coordinator/Management/Session/Edit" asp-route-id="@Model.Session.SessionId">Edit</a>
+            <a class="btn btn-danger" asp-page="/Coordinator/Management/Session/Delete" asp-route-id="@Model.Session.SessionId">Delete</a>
+            <a class="btn btn-secondary" asp-page="/Coordinator/Management/Session/Index">Back to List</a>
+        </div>
+    </div>
+</div>

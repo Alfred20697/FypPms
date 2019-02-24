@@ -1,0 +1,173 @@
+﻿@page
+@model FypPms.Pages.Student.IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Announcement</h4>
+            @if (Model.Announcements.Count() > 0)
+            {
+                @foreach (var item in Model.Announcements)
+                {
+                    <div class="card border-dark">
+                        <div class="card-header text-white" style="background-color: #00695c;">
+                            @item.AnnouncementSubject
+                        </div>
+                        <div class="card-body" style="background-color: #ffffff;">
+                            <p class="card-text text-dark">@Html.Raw(item.AnnouncementBody)</p>
+                            @if (item.AttachmentFile != null)
+                            {
+                                <span>Attachment: </span>
+                                <a class="btn-link" asp-page="/Student/Index" asp-route-id="@item.AnnouncementId" asp-page-handler="Download"> @item.AttachmentFile</a>
+                            }
+                            <p class="card-text text-dark">
+                                @item.DateCreated
+                                @if (item.DateModified == null)
+                                {
+                                    <span>(New)</span>
+                                }
+                                else
+                                {
+                                    <span>(Edited)</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                    <br />
+                }
+            }
+            else
+            {
+                <div class="card border-dark">
+                    <div class="card-body" style="background-color: #ffffff;">
+                        <p class="card-text text-dark">No announcement yet</p>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>My Project</h4>
+                    @if (Model.Project != null)
+                    {
+                        <div class="card border-dark">
+                            <div class="card-header text-white" style="background-color: #00695c;">
+                                @Model.Project.ProjectTitle
+                            </div>
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">Supervisor: @Model.Supervisor.SupervisorName</p>
+                                <p class="card-text text-dark">Type: @Model.Project.ProjectType</p>
+                                <p class="card-text text-dark">Category: @Model.Project.ProjectCategory</p>
+                                <p class="card-text text-dark">Focus: @Model.Project.ProjectFocus</p>
+                                <a class="card-link btn btn-outline-primary" asp-page="/Student/Project/MyProject">View Project</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card border-dark">
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No project assigned</p>
+                                <a class="card-link btn btn-outline-primary" asp-page="/Student/Project/MyProposal">Create New Proposal</a>
+                                <a class="card-link btn btn-outline-primary" asp-page="/Student/Project/ProjectList">View More Project</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>My Proposal</h4>
+                    @if (Model.Proposal != null)
+                    {
+                        <div class="card border-dark">
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">Project Title: @Model.Proposal.Project.ProjectTitle</p>
+                                <p class="card-text text-dark">Status: @Model.Proposal.ProposalStatus</p>
+                                <p class="card-text text-dark text-truncate">Comment: @Html.Raw(Model.Proposal.ProposalComment)</p>
+                                <a class="card-link btn btn-outline-primary" asp-page="/Student/Project/MyProposal">Edit Proposal</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card border-dark">
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No proposal require modification</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Weekly Log</h4>
+                    @if (Model.WeeklyLog != null)
+                    {
+                        <div class="card border-dark">
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">Meeting No: @Model.WeeklyLog.WeeklyLogNumber</p>
+                                <p class="card-text text-dark">Status: @Model.WeeklyLog.WeeklyLogStatus</p>
+                                <p class="card-text text-dark text-truncate">Comment: @Html.Raw(Model.WeeklyLog.Comment)</p>
+                                <a class="card-link btn btn-outline-primary" asp-page="/Student/Progress/Index">View Weekly Log</a>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card border-dark">
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <a class="card-link btn btn-outline-primary" asp-page="/Student/Progress/Index">Create New Weekly Log</a>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>FYP Submission Deadline</h4>
+                    @if (Model.SubmissionType != null)
+                    {
+                        <div class="card border-dark">
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">Submission Type: @Model.SubmissionType.Name</p>
+                                <p class="card-text text-dark">Deadline: @Model.SubmissionType.EndDate.ToShortDateString()</p>
+                                @if (Model.Submission == null)
+                                {
+                                    <a class="card-link btn btn-outline-primary" asp-page="/Student/Submission/Index">Submit Report</a>
+                                }
+                                else
+                                {
+                                    <p class="card-text text-dark">Status: Submitted</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card border-dark">
+                            <div class="card-body" style="background-color: #ffffff;">
+                                <p class="card-text text-dark">No report submission deadline yet</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

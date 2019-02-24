@@ -1,0 +1,143 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Review.IndexModel
+@{
+    ViewData["Title"] = "Review List";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+
+            @{
+                if (Model.ReviewCount == 0)
+                {
+                    <p>You have no review request yet. </p>
+                }
+                else
+                {
+                    <table class="table table-responsive-md" id="review">
+                        <thead style="background-color: #69000D; color: #fff;">
+                            <tr>
+                                <th class="align-middle" style="width: 12.5%">
+                                    @Html.DisplayNameFor(model => model.Reviews[0].Project.AssignedId)
+                                </th>
+                                <th class="align-middle" style="width: 27.5%">
+                                    @Html.DisplayNameFor(model => model.Reviews[0].Project)
+                                </th>
+                                <th class="align-middle" style="width: 15%">
+                                    @Html.DisplayNameFor(model => model.Reviews[0].Reviewer)
+                                </th>
+                                <th class="align-middle" style="width: 15%">
+                                    @Html.DisplayNameFor(model => model.Reviews[0].ReviewStatus)
+                                </th>
+                                <th class="align-middle" style="width: 15%">
+                                    @Html.DisplayNameFor(model => model.Reviews[0].ReviewComment)
+                                </th>
+                                <th class="align-middle" style="width: 15%">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Reviews)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project.AssignedId)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Project.ProjectTitle)
+                                    </td>
+                                    <td>
+                                        @if (item.Reviewer != null)
+                                        {
+                                            @Model.SupervisorPairs[item.Reviewer]
+                                        }
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReviewStatus)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.ReviewComment)
+                                    </td>
+
+                                    <td>
+                                        @if (item.ReviewStatus.Equals("New"))
+                                        {
+                                            <a class="btn btn-outline-primary" asp-page="/Coordinator/Review/AssignReviewer" asp-route-id="@item.ReviewId">Assign Reviewer</a>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-info">Reviewer Assigned</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+            }
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col">
+                @{
+                    if (Model.CompletedCount > 0)
+                    {
+                        <h4>Completed Review</h4>
+                        <table class="table table-responsive-md">
+                            <thead style="background-color: #69000D; color: #fff;">
+                                <tr>
+                                    <th class="align-middle">
+                                        @Html.DisplayNameFor(model => model.CompletedReviews[0].Project)
+                                    </th>
+                                    <th class="align-middle">
+                                        @Html.DisplayNameFor(model => model.CompletedReviews[0].Reviewer)
+                                    </th>
+                                    <th class="align-middle">
+                                        @Html.DisplayNameFor(model => model.CompletedReviews[0].ReviewStatus)
+                                    </th>
+                                    <th class="align-middle">
+                                        @Html.DisplayNameFor(model => model.CompletedReviews[0].ReviewComment)
+                                    </th>
+
+                                    <th class="align-middle">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.CompletedReviews)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Project.ProjectTitle)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Reviewer)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ReviewStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ReviewComment)
+                                        </td>
+
+                                        <td>
+                                            <span class="text-success">Review Completed</span>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                }
+            </div>
+        </div>*@
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#review').DataTable();
+    });
+</script>

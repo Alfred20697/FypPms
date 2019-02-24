@@ -1,0 +1,114 @@
+﻿@page "{id:int}"
+@model FypPms.Pages.Supervisor.Review.ReviewProjectModel
+@{
+    ViewData["Title"] = "Review Project";
+}
+
+<div class="container">
+    <div class="col-md-12">
+        <div>
+            <p class="text-success">@Model.SuccessMessage</p>
+            <p class="text-danger">@Model.ErrorMessage</p>
+        </div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.AssignedId)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.AssignedId)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.ProjectTitle)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.ProjectTitle)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.ProposedBy)
+            </dt>
+            <dd>
+                <span class="text-primary">@Html.DisplayFor(model => model.Project.ProposedBy)</span>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.ProjectStatus)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.ProjectStatus)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.ProjectType)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.ProjectType)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.ProjectCategory)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.ProjectCategory)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Project.ProjectFocus)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Project.ProjectFocus)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectSpecializations[0].ProjectDescription)
+            </dt>
+            <dd>
+                @Html.Raw(Model.ProjectSpecializations[0].ProjectDescription)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectSpecializations[0].ProjectObjective)
+            </dt>
+            <dd>
+                @Html.Raw(Model.ProjectSpecializations[0].ProjectObjective)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ProjectSpecializations[0].ProjectScope)
+            </dt>
+            <dd>
+                @Html.Raw(Model.ProjectSpecializations[0].ProjectScope)
+            </dd>
+            <dt>
+                Moderator
+            </dt>
+            <dd>
+                @if (Model.Project.ModeratorOne != null && Model.Project.ModeratorTwo == null && Model.Project.ModeratorThree == null)
+                {
+                    <span>@Model.SupervisorPairs[Model.Project.ModeratorOne]</span>
+                }
+                @if (Model.Project.ModeratorOne != null && Model.Project.ModeratorTwo != null && Model.Project.ModeratorThree == null)
+                {
+                    <span>@Model.SupervisorPairs[Model.Project.ModeratorOne], @Model.SupervisorPairs[Model.Project.ModeratorTwo]</span>
+                }
+                @if (Model.Project.ModeratorOne != null && Model.Project.ModeratorTwo != null && Model.Project.ModeratorThree != null)
+                {
+                    <span>@Model.SupervisorPairs[Model.Project.ModeratorOne], @Model.SupervisorPairs[Model.Project.ModeratorTwo], @Model.SupervisorPairs[Model.Project.ModeratorThree]</span>
+                }
+            </dd>
+        </dl>
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Rpf.Comment" class="control-label" style="font-weight: bold"></label>
+                <small style="color: red;">* Please fill in if the proposal needs modification.</small>
+                <textarea asp-for="Rpf.Comment" class="form-control" rows="6" id="comment"></textarea>
+                <span asp-validation-for="Rpf.Comment" class="text-danger"></span>
+            </div>
+            <button class="btn btn-success" asp-page-handler="Approve" asp-route-id="@Model.Review.ReviewId">Approve</button>
+            <button class="btn btn-warning" asp-page-handler="Modify" asp-route-id="@Model.Review.ReviewId">Require Modification</button>
+        </form>
+    </div>
+    <br />
+    <div class="col-md-12">
+        <a class="btn btn-secondary" asp-page="/Supervisor/Review/Index">Back to List</a>
+    </div>
+</div>
+
+<script>
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    CKEDITOR.replace('comment');
+</script>
+

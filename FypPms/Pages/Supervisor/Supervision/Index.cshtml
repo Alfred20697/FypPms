@@ -1,0 +1,141 @@
+﻿@page
+@model FypPms.Pages.Supervisor.Supervision.IndexModel
+@{
+    ViewData["Title"] = "Supervised Projects";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Supervised Project</h4>
+            @if (Model.Projects.Count() > 0)
+            {
+                <table class="table table-responsive-md" id="supervision">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 12.5%">
+                                @Html.DisplayNameFor(model => model.Projects[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 22.5%">
+                                @Html.DisplayNameFor(model => model.Projects[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Student
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                Weekly Log (Require Approval)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Report Submission
+                            </th>
+                            <th class="align-middle" style="width: 15%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Projects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Model.StudentProjectPairs[item.ProjectId]
+                                </td>
+                                <td class="text-center">
+                                    @Model.ProjectLogCountPairs[item.ProjectId]
+                                </td>
+                                <td class="text-center">
+                                    @Model.ProjectSubmissionCountPairs[item.ProjectId]
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Supervisor/Supervision/SupervisedStudent" asp-route-id="@item.ProjectId">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>You have no supervised project.</p>
+            }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Co-Supervised Project</h4>
+            @if (Model.CoSuperviseProjects.Count() > 0)
+            {
+                <table class="table table-responsive-md" id="supervision2">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 12.5%">
+                                @Html.DisplayNameFor(model => model.CoSuperviseProjects[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 22.5%">
+                                @Html.DisplayNameFor(model => model.CoSuperviseProjects[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Student
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                Weekly Log (Require Approval)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Report Submission
+                            </th>
+                            <th class="align-middle" style="width: 15%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CoSuperviseProjects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Model.StudentProjectPairs[item.ProjectId]
+                                </td>
+                                <td class="text-center">
+                                    @Model.ProjectLogCountPairs[item.ProjectId]
+                                </td>
+                                <td class="text-center">
+                                    @Model.ProjectSubmissionCountPairs[item.ProjectId]
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Supervisor/Supervision/SupervisedStudent" asp-route-id="@item.ProjectId">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>You have no co-supervised project.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#supervision').DataTable();
+        $('#supervision2').DataTable();
+    });
+</script>

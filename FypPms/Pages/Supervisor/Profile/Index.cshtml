@@ -1,0 +1,72 @@
+﻿@page
+@model FypPms.Pages.Supervisor.Profile.IndexModel
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+            <a class="btn btn-outline-info" asp-page="/Supervisor/Profile/Edit" asp-route-id="@Model.Supervisor.SupervisorId">Edit Profile</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.AssignedId)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.AssignedId)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorName)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorName)
+                </dd>
+                <dt>
+                    Password
+                </dt>
+                <dd>
+                    Click <a asp-page="/Supervisor/Profile/ChangePassword" class="text-info">here</a> to change password
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorStatus)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorStatus)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorGender)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorGender)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorSpecialization)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorSpecialization)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorPhone)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorPhone)
+                </dd>
+                <dt>
+                    @Html.DisplayNameFor(model => model.Supervisor.SupervisorEmail)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Supervisor.SupervisorEmail)
+                </dd>
+            </dl>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,62 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Management.IndexModel
+@{
+    ViewData["Title"] = "System Management";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <h4>Manage Project</h4>
+            <p><a class="btn btn-outline-primary" asp-page="/Coordinator/Project/Index">Manage Project</a></p>
+
+            <h4>Manage Student</h4>
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index">Manage Student</a>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Student/Index">Student Approval</a>
+            </p>
+
+            <h4>Manage Supervisor</h4>
+            <p><a class="btn btn-outline-primary" asp-page="/Coordinator/Supervisor/Index">Manage Supervisor</a></p>
+        </div>
+        <div class="col-md-6">
+            <h4>Project Related Settings</h4>
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Focus/Index">Manage Project Focus</a>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Category/Index">Manage Project Category</a>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Specialization/Index">Manage Project Specialization</a>
+            </p>
+
+            <h4>System Related Settings</h4>
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Batch/Index">Manage Batch</a>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/SubmissionType/Index">Manage Submission Type</a>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Management/Session/Index">Manage Session</a>
+            </p>
+
+            <h4>Assign Task</h4>
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Moderation/Index">Assign Moderator</a>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Review/Index">Assign Reviewer</a>
+            </p>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Personal Information</h4>
+            <p>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Profile/EditProfile">Edit Profile</a>
+                <a class="btn btn-outline-primary" asp-page="/Coordinator/Profile/ChangePassword">Change Password</a>
+            </p>
+        </div>
+    </div>
+</div>

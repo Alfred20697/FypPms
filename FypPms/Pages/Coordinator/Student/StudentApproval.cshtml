@@ -1,0 +1,73 @@
+﻿@page
+@model FypPms.Pages.Coordinator.Student.StudentApprovalModel
+@{
+    ViewData["Title"] = "Student Approval";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+
+            @if (Model.Student.Count() == 0)
+            {
+                <p>You have no student approval request</p>
+            }
+            else
+            {
+                <table class="table table-responsive-md" id="approval">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Student[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Student[0].StudentName)
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Student[0].StudentStatus)
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                @Html.DisplayNameFor(model => model.Student[0].Batch)
+                            </th>
+                            <th class="align-middle" style="width: 20%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Student)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StudentStatus)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Batch.BatchName)
+                                </td>
+                                <td>
+                                    <form method="post">
+                                        <button class="btn btn-outline-primary" asp-route-id="@item.StudentId" type="submit">Approve</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#approval').DataTable();
+    });
+</script>

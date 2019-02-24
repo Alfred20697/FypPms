@@ -1,0 +1,81 @@
+﻿@page
+@model FypPms.Pages.Supervisor.Moderation.IndexModel
+@{
+    ViewData["Title"] = "Moderated Projects";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div>
+                <p class="text-success">@Model.SuccessMessage</p>
+                <p class="text-danger">@Model.ErrorMessage</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h4>Moderated Project</h4>
+            @if (Model.ModeratedProjects.Count() > 0)
+            {
+                <table class="table table-responsive-md" id="moderation">
+                    <thead style="background-color: #69000D; color: #fff;">
+                        <tr>
+                            <th class="align-middle" style="width: 12.5%">
+                                @Html.DisplayNameFor(model => model.ModeratedProjects[0].AssignedId)
+                            </th>
+                            <th class="align-middle" style="width: 22.5%">
+                                @Html.DisplayNameFor(model => model.ModeratedProjects[0].ProjectTitle)
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Student
+                            </th>
+                            <th class="align-middle" style="width: 20%">
+                                Weekly Log
+                            </th>
+                            <th class="align-middle" style="width: 15%">
+                                Report Submission
+                            </th>
+                            <th class="align-middle" style="width: 15%">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.ModeratedProjects)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AssignedId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProjectTitle)
+                                </td>
+                                <td>
+                                    @Model.StudentProjectPairs[item.ProjectId]
+                                </td>
+                                <td class="text-center">
+                                    @Model.ProjectLogCountPairs[item.ProjectId]
+                                </td>
+                                <td class="text-center">
+                                    @Model.ProjectSubmissionCountPairs[item.ProjectId]
+                                </td>
+                                <td>
+                                    <a class="btn btn-outline-info" asp-page="/Supervisor/Moderation/ModeratedStudent" asp-route-id="@item.ProjectId">View Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>You have no moderated project.</p>
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#moderation').DataTable();
+    });
+</script>
